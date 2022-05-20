@@ -5,6 +5,7 @@ public class Ex_02 {
 
 		System.out.println("5678");
 		System.out.println(" dddd");
+		System.out.println("hi");
 	}
 
 }
