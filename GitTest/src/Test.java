@@ -5,7 +5,7 @@ public class Test {
 
 		
 		System.out.println("첫 번재 커밋!");
-		
+		System.out.println("두 번째 커밋!");
 		
 		
 	}
