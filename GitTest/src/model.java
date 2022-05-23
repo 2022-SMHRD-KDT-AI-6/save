@@ -40,5 +40,198 @@ public class model {
 	private String user_id;	// 현재 사용자가 입력한 id
 	private String user_pw; // 현재 사용자가 입력한 password
 	private String user_money; // 돈
+	
+	public int getMaxRound() {
+		return maxRound;
+	}
+	public void setMaxRound(int maxRound) {
+		this.maxRound = maxRound;
+	}
+	public int getNowRound() {
+		return nowRound;
+	}
+	public void setNowRound(int nowRound) {
+		this.nowRound = nowRound;
+	}
+	public int getOdState() {
+		return odState;
+	}
+	public void setOdState(int odState) {
+		this.odState = odState;
+	}
+	public int getPitcherNum() {
+		return pitcherNum;
+	}
+	public void setPitcherNum(int pitcherNum) {
+		this.pitcherNum = pitcherNum;
+	}
+	public int getHitterNum() {
+		return hitterNum;
+	}
+	public void setHitterNum(int hitterNum) {
+		this.hitterNum = hitterNum;
+	}
+	public int getTeamPoint() {
+		return teamPoint;
+	}
+	public void setTeamPoint(int teamPoint) {
+		this.teamPoint = teamPoint;
+	}
+	public int getEnemyPoint() {
+		return enemyPoint;
+	}
+	public void setEnemyPoint(int enemyPoint) {
+		this.enemyPoint = enemyPoint;
+	}
+	public int getStrikeCount() {
+		return strikeCount;
+	}
+	public void setStrikeCount(int strikeCount) {
+		this.strikeCount = strikeCount;
+	}
+	public int getOutCount() {
+		return outCount;
+	}
+	public void setOutCount(int outCount) {
+		this.outCount = outCount;
+	}
+	public int[] getScoreSheet() {
+		return scoreSheet;
+	}
+	public void setScoreSheet(int[] scoreSheet) {
+		this.scoreSheet = scoreSheet;
+	}
+	public int getBuntSuccBase() {
+		return buntSuccBase;
+	}
+	public void setBuntSuccBase(int buntSuccBase) {
+		this.buntSuccBase = buntSuccBase;
+	}
+	public int[] getBuntChanceBase() {
+		return buntChanceBase;
+	}
+	public void setBuntChanceBase(int[] buntChanceBase) {
+		this.buntChanceBase = buntChanceBase;
+	}
+	public int getNormalSuccBase() {
+		return normalSuccBase;
+	}
+	public void setNormalSuccBase(int normalSuccBase) {
+		this.normalSuccBase = normalSuccBase;
+	}
+	public int[] getNormalChanceBase() {
+		return normalChanceBase;
+	}
+	public void setNormalChanceBase(int[] normalChanceBase) {
+		this.normalChanceBase = normalChanceBase;
+	}
+	public int getStrongSuccBase() {
+		return strongSuccBase;
+	}
+	public void setStrongSuccBase(int strongSuccBase) {
+		this.strongSuccBase = strongSuccBase;
+	}
+	public int[] getStrongChanceBase() {
+		return strongChanceBase;
+	}
+	public void setStrongChanceBase(int[] strongChanceBase) {
+		this.strongChanceBase = strongChanceBase;
+	}
+	public int getBreakingBallBase() {
+		return breakingBallBase;
+	}
+	public void setBreakingBallBase(int breakingBallBase) {
+		this.breakingBallBase = breakingBallBase;
+	}
+	public int[] getBreakingBallChanceBase() {
+		return breakingBallChanceBase;
+	}
+	public void setBreakingBallChanceBase(int[] breakingBallChanceBase) {
+		this.breakingBallChanceBase = breakingBallChanceBase;
+	}
+	public int getSliderBase() {
+		return sliderBase;
+	}
+	public void setSliderBase(int sliderBase) {
+		this.sliderBase = sliderBase;
+	}
+	public int[] getSliderChanceBase() {
+		return sliderChanceBase;
+	}
+	public void setSliderChanceBase(int[] sliderChanceBase) {
+		this.sliderChanceBase = sliderChanceBase;
+	}
+	public int getFastBallBase() {
+		return fastBallBase;
+	}
+	public void setFastBallBase(int fastBallBase) {
+		this.fastBallBase = fastBallBase;
+	}
+	public int[] getFastBallChanceBase() {
+		return fastBallChanceBase;
+	}
+	public void setFastBallChanceBase(int[] fastBallChanceBase) {
+		this.fastBallChanceBase = fastBallChanceBase;
+	}
+	public int getEnhanceBase() {
+		return enhanceBase;
+	}
+	public void setEnhanceBase(int enhanceBase) {
+		this.enhanceBase = enhanceBase;
+	}
+	public String[] getCharName() {
+		return charName;
+	}
+	public void setCharName(String[] charName) {
+		this.charName = charName;
+	}
+	public int[][] getCharInfo() {
+		return charInfo;
+	}
+	public void setCharInfo(int[][] charInfo) {
+		this.charInfo = charInfo;
+	}
+	public int[] getComInfo() {
+		return comInfo;
+	}
+	public void setComInfo(int[] comInfo) {
+		this.comInfo = comInfo;
+	}
+	public int[][] getCharGameGrade() {
+		return charGameGrade;
+	}
+	public void setCharGameGrade(int[][] charGameGrade) {
+		this.charGameGrade = charGameGrade;
+	}
+	public int[][] getCharAllGrade() {
+		return charAllGrade;
+	}
+	public void setCharAllGrade(int[][] charAllGrade) {
+		this.charAllGrade = charAllGrade;
+	}
+	public int[] getUserGrade() {
+		return userGrade;
+	}
+	public void setUserGrade(int[] userGrade) {
+		this.userGrade = userGrade;
+	}
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+	public String getUser_pw() {
+		return user_pw;
+	}
+	public void setUser_pw(String user_pw) {
+		this.user_pw = user_pw;
+	}
+	public String getUser_money() {
+		return user_money;
+	}
+	public void setUser_money(String user_money) {
+		this.user_money = user_money;
+	}
 }
 	
