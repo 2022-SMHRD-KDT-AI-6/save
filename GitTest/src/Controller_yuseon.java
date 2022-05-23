@@ -82,7 +82,7 @@ public class Controller_yuseon {
 				result = false;
 			}
 			if (result = true) {
-				sql = "insert into mem values(?, ?)";
+				sql = "insert into user_info values(?, ?)";
 				psmt = conn.prepareStatement(sql);
 				psmt.setString(1, md.getUser_id());
 				psmt.setString(2, md.getUser_pw());
@@ -124,5 +124,13 @@ public class Controller_yuseon {
 		}
 		return result;
 	}
+//	public void 
+//	
+//	public boolean deleteChar() {
+//		boolean result = true;
+//		
+//		
+//		return result;
+//	}
 
 }
