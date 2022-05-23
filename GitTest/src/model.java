@@ -40,6 +40,9 @@ public class model {
 	private String user_id;	// 현재 사용자가 입력한 id
 	private String user_pw; // 현재 사용자가 입력한 password
 	private String user_money; // 돈
+	
+	
+	
 	public int getMaxRound() {
 		return maxRound;
 	}

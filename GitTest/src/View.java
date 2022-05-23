@@ -10,7 +10,7 @@ public class View {
 //		메인메뉴 -> 게임 / 생성삭제 / 강화 / 정보확인변경 / 게임종료
 //		생성삭제 -> 생성 / 삭제
 //		정보확인변경 -> 유저정보 / 캐릭터정보 / 타순 
-		
+		Controller_yuseon dao = new Controller_yuseon();
 		Scanner sc = new Scanner(System.in);
 		model md = new model();
 		
@@ -31,13 +31,15 @@ public class View {
 				if(user_select == 1) { 
 					//로그인
 					System.out.println("=====로그인=====");
-					System.out.print("ID와 PW를 입력해주세요");
+					System.out.println("ID와 PW를 입력해주세요");
 					System.out.print("ID >> ");
 					id = sc.next();
-					System.out.println("PW >> ");
+					md.setUser_id(id);
+					System.out.print("PW >> ");
 					pw = sc.next();
-					
-					if(loginId()) {
+					md.setUser_pw(pw);
+					boolean result = dao.loginId(md);
+					if(result) {
 						System.out.println("로그인 성공!");
 						bringUserInfo();
 						game_page = "메인메뉴";
@@ -52,10 +54,14 @@ public class View {
 					System.out.println("가입할 ID와 PW를 입력해주세요");
 					System.out.print("ID >> ");
 					id = sc.next();
+					md.setUser_id(id);
 					System.out.print("PW >> ");
 					pw = sc.next();
+					md.setUser_pw(pw);
+					boolean result = dao.makeId(md); //Controller_yuseon 으로 이동하는 dao 코드
+				
 					
-					if(makeId()) { //아이디 생성 시도
+					if(result) { //아이디 생성 시도
 						System.out.println("아이디 생성 성공!");
 					}
 					else {

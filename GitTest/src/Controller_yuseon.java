@@ -49,17 +49,16 @@ public class Controller_yuseon {
 
 	public boolean loginId(model md) {
 		getCon();
-		boolean result = false;
+		boolean result = true;
 		try {
-			String sql = "select * from user_info where user_id = ?, user_pw = ?";
+			String sql = "select id, pw from user_info where ID = ? and PW = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, md.getUser_id());
 			psmt.setString(2, md.getUser_pw());
 			rs = psmt.executeQuery();
-			if (rs.next()) {
-				result = true;
-			}
+			result =rs.next();
 			
+				
 		} catch (SQLException e) {
 			System.out.println("DB 오류");
 			e.printStackTrace();
@@ -74,18 +73,20 @@ public class Controller_yuseon {
 		getCon();
 		boolean result = true;
 		try {
-			String sql = "select * from user_info where user_id = ?";
+			String sql = "select * from user_info where ID = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, md.getUser_id());
 			rs = psmt.executeQuery();
+	
 			if (rs.next()) {
-				result = false;
-			}
-			if (result = true) {
-				sql = "insert into user_info values(?, ?,0)";
+				return false;
+			}else {
+			
+				sql = "insert into user_info values(?, ? ,0)";
 				psmt = conn.prepareStatement(sql);
 				psmt.setString(1, md.getUser_id());
 				psmt.setString(2, md.getUser_pw());
+			
 				row = psmt.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -94,6 +95,8 @@ public class Controller_yuseon {
 		} finally {
 			close();
 		}
+	
+		
 		if (row != 0) {
 			return true;
 		} else {
@@ -105,16 +108,12 @@ public class Controller_yuseon {
 		getCon();
 		boolean result = true;
 		try {
-			String sql = "select from char_info where = ? ";
+			String sql = "select * from char_info where ID= ? ";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, md.getUser_id());
 			rs = psmt.executeQuery();
 			result = rs.next();
-		 if(rs.next()) {
-			     result = true;	
-			}else {
-				result =false;
-			}
+		
 		} catch (SQLException e) {
 			System.out.println("DB 오류");
 			e.printStackTrace();
@@ -124,13 +123,8 @@ public class Controller_yuseon {
 		}
 		return result;
 	}
-//	public void 
-//	
-//	public boolean deleteChar() {
-//		boolean result = true;
-//		
-//		
-//		return result;
-//	}
+	
+
+
 
 }
