@@ -82,7 +82,7 @@ public class Controller_yuseon {
 				result = false;
 			}
 			if (result = true) {
-				sql = "insert into user_info values(?, ?)";
+				sql = "insert into user_info values(?, ?,0)";
 				psmt = conn.prepareStatement(sql);
 				psmt.setString(1, md.getUser_id());
 				psmt.setString(2, md.getUser_pw());
