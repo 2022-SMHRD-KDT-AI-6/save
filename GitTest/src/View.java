@@ -10,7 +10,7 @@ public class View {
 //		메인메뉴 -> 게임 / 생성삭제 / 강화 / 정보확인변경 / 게임종료
 //		생성삭제 -> 생성 / 삭제
 //		정보확인변경 -> 유저정보 / 캐릭터정보 / 타순 
-		Controller_yuseon dao = new Controller_yuseon();
+		Controller dao = new Controller();
 		Scanner sc = new Scanner(System.in);
 		model md = new model();
 		
