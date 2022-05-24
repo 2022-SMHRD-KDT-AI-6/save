@@ -12,6 +12,7 @@ import java.util.Random;
 
 public class Controller {
 
+	Random rd = new Random();
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
@@ -51,7 +52,8 @@ public class Controller {
 		}
 
 	}
-
+	
+	//로그인
 	public boolean loginId(model md) {
 		getCon();
 		boolean result = true;
@@ -72,7 +74,7 @@ public class Controller {
 		}
 		return result;
 	}
-
+	//회원가입
 	public boolean makeId(model md) {
 		getCon();
 		boolean result = true;
@@ -106,6 +108,7 @@ public class Controller {
 			return false;
 		}
 	}
+	//캐릭터삭제
 	public int deleteChar(model md) {
 	getCon();
 	
@@ -123,6 +126,7 @@ public class Controller {
 	}
 	return row;
 	}
+	//캐릭터 존재 확인
 	public boolean checkChar(model md) {
 		getCon();
 		boolean result = true;
@@ -142,28 +146,8 @@ public class Controller {
 		}
 		return result;
 	}
-
-
-	public void changeCharTurn(model md) { 
-
-		int charInfo[][] = md.getCharInfo(); 
-
-		int changeTurn[][] = new int[5][4]; 
-		int num = 0; 
-
-		for (int i = 0; i < charInfo.length; i++) {
-			num = charInfo[i][3]; 
-			for (int j = 0; j < charInfo[i].length; j++) {
-				changeTurn[num - 1][j] = charInfo[i][j];
-			}
-		}
-
-		md.setCharInfo(changeTurn);
-
-		// charUpdate();
-	}
-
-	Random rd = new Random();
+	
+	//볼을 쳤는지 
 	public boolean isHitBall(model md) { 
 		
 		int random = rd.nextInt(100)+1; 
@@ -175,6 +159,7 @@ public class Controller {
 		
 	}
 	
+	//쳤을때 결과 
 	public String hitBall(model md) {
 		
 		int random = rd.nextInt(100)+1;
@@ -195,7 +180,8 @@ public class Controller {
 		}
 	}
 	
-public void playUpdate(model md, String gameState) {
+	//결과 저장
+	public void playUpdate(model md, String gameState) {
 		
 		int odState = md.getOdState();
 		int teamPoint = md.getTeamPoint();
@@ -270,5 +256,5 @@ public void playUpdate(model md, String gameState) {
 			}
 		}
 	}
-}
+	}
 

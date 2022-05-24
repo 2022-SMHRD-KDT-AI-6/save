@@ -153,6 +153,7 @@ public class View {
 	public static void viewGameStart(model md) {
 		//1. 치는거, 던지는거, 스트라이크, 쳤다, 아웃, 공수교대, 게임종료
 		Scanner sc = new Scanner(System.in);
+		Controller con = new Controller();
 		
 		int maxRound = 0;
 		String gameState = "공격";
@@ -191,19 +192,33 @@ public class View {
 					System.out.print("번트[1] 스윙[2] 강스윙[3] >> ");
 					actNum = sc.nextInt();
 					
-					if
+					if(con.isHitBall(md)) {
+						gameState = "HITBALL";
+					}
+					
 					break;
+					
 				case("DEFEN"):
+					
 					break;
+				
 				case("STRIKE"):
 					break;
 				case("HITBALL"):
+					System.out.println("공을 쳤습니다.");
+					String result = con.hitBall(md);
+					System.out.println("결과 : " + result);
+					con.playUpdate(md, gameState);
 					break;
+					
 				case("OUT"):
+					System.out.println("아웃");
 					break;
 				case("CHANGE"):
+					System.out.println("공수 교대");
 					break;
 				case("OVER"):
+					System.out.println("게임종료");
 					break;
 			}
 		}
@@ -211,128 +226,128 @@ public class View {
 		
 		
 	}
-	public static void viewGameStart2(model md) {
-		Scanner sc = new Scanner(System.in);
-		
-		String[] charName = md.getCharName();
-		
-		System.out.println("=====게임시작=====");
-		
-		//게임 라운드수 입력
-		do{
-			System.out.print("라운드 수(최대 10) : ");
-			maxRound = sc.nextInt();
-			if(maxRound > 10) {
-				System.out.println("10보다 작게 입력해주세요.");
-			}
-			else {
-				//게임시작전 초기값 설정 라운드수, 현재라운드, 타자번호, 공수상황
-				md.setMaxRound(maxRound);
-				md.setNowRound(1);
-				md.setHitterNum(0);
-				md.setOdState(0);
-			}
-		}while(maxRound >= 10);
-		
-		int nowRound = 1;
-		
-		//투수 선택
-		while(true) {
-			//////////////////////////////////////////////////////////여기서부터 진행
-			int outCnt = 0;
-			//공격상황
-			if(md.getOdState() == 0) {
-				int hitterNum = sc.nextInt();
-				System.out.println("공격상황");
-				System.out.println("현재팀 점수 : " + md.getTeamPoint() + "적팀 점수 : " + md.getEnemyPoint());
-				System.out.print(hitterNum + "번 이름 :  " + charName[hitterNum-1]);
-				System.out.print(" 타구력 : " + charInfo[hitterNum-1][0] + " ");
-				System.out.print(" 강화상태 : " + charInfo[hitterNum-1][2] + " ");
-				System.out.print(" 순번 : " + charInfo[hitterNum-1][3] + " ");
-				System.out.println();
-					
-				System.out.println("타자의 행동 선택>> 번트[1] 스윙[2] 강스윙[3]");
-				md.setActNum(hitterNum);
-				
-				//공을 쳤을때
-				if(isHitBall()) {
-					System.out.println("공을 쳤습니다!");
-					String Ballstate = hitBall();
-					int[] scoreSheet = md.getScoreSheet();
-					int teamPoint = md.getTeamPoint();
-					md.playUpdate(Ballstate);
-					System.out.println("다음 선수");
-					hitterNum++;
-				}
-				//공을 못쳤을때
-				else {
-					//스트라이크 당함
-					System.out.println("스트라이크");
-					int strikeCnt = md.getStrikeCount();
-					strikeCnt++;
-					if(strikeCnt >= 3) {
-						//삼진아웃
-						System.out.println("삼진아웃");
-						md.setStrikeCount(0);
-						outCnt++;
-						System.out.println("다음 선수");
-						hitterNum++;
-					}
-					
-					
-					
-				}
-			}
-			
-			//수비상황
-			else {
-				System.out.print("투수를 선택해주세요 : ");
-				pitcherNum = sc.nextInt();
-				md.setPitcherNum(pitcherNum);
-				
-				System.out.println("수비");
-				System.out.println("현재팀 점수 : " + md.getTeamPoint() + "적팀 점수 : " + md.getEnemyPoint());
-				System.out.print(pitcherNum + "번 이름 :  " + charName[pitcherNum-1]);
-				System.out.print(" 투구력 : " + charInfo[pitcherNum-1][1] + " ");
-				System.out.print(" 강화상태 : " + charInfo[pitcherNum-1][2] + " ");
-				System.out.println();
-				
-				
-				
-			}
-			
-			//아웃 3회 공수교대
-			if(outCnt >= 3) {
-				System.out.println("공수교대");
-				int odState = md.getOdState();
-				//공격 -> 수비
-				if(odState == 0) {
-					System.out.print("이번 게임 투수를 선택해주세요");
-					pitcherNum = sc.nextInt();
-					if(pitcherNum < 1 && pitcherNum > 5) {
-						System.out.println("잘못된 번호 입력");
-					}
-					else {
-						//투수 번호 초기값 설정
-						md.setPitcherNum(pitcherNum);
-					}
-					md.setOdState(1);
-					nowRound++;
-				}
-				//수비 -> 공격
-				else {
-					nowRound++;
-					md.setNowRound(nowRound);
-					md.setOdState(0);;
-				}
-			}
-			
-			if(nowRound == maxRound) {
-			System.out.println(maxRound + "끝 게임종료");
-			break;
-			}
-			
-		}
+//	public static void viewGameStart2(model md) {
+//		Scanner sc = new Scanner(System.in);
+//		
+//		String[] charName = md.getCharName();
+//		
+//		System.out.println("=====게임시작=====");
+//		
+//		//게임 라운드수 입력
+//		do{
+//			System.out.print("라운드 수(최대 10) : ");
+//			maxRound = sc.nextInt();
+//			if(maxRound > 10) {
+//				System.out.println("10보다 작게 입력해주세요.");
+//			}
+//			else {
+//				//게임시작전 초기값 설정 라운드수, 현재라운드, 타자번호, 공수상황
+//				md.setMaxRound(maxRound);
+//				md.setNowRound(1);
+//				md.setHitterNum(0);
+//				md.setOdState(0);
+//			}
+//		}while(maxRound >= 10);
+//		
+//		int nowRound = 1;
+//		
+//		//투수 선택
+//		while(true) {
+//			//////////////////////////////////////////////////////////여기서부터 진행
+//			int outCnt = 0;
+//			//공격상황
+//			if(md.getOdState() == 0) {
+//				int hitterNum = sc.nextInt();
+//				System.out.println("공격상황");
+//				System.out.println("현재팀 점수 : " + md.getTeamPoint() + "적팀 점수 : " + md.getEnemyPoint());
+//				System.out.print(hitterNum + "번 이름 :  " + charName[hitterNum-1]);
+//				System.out.print(" 타구력 : " + charInfo[hitterNum-1][0] + " ");
+//				System.out.print(" 강화상태 : " + charInfo[hitterNum-1][2] + " ");
+//				System.out.print(" 순번 : " + charInfo[hitterNum-1][3] + " ");
+//				System.out.println();
+//					
+//				System.out.println("타자의 행동 선택>> 번트[1] 스윙[2] 강스윙[3]");
+//				md.setActNum(hitterNum);
+//				
+//				//공을 쳤을때
+//				if(isHitBall()) {
+//					System.out.println("공을 쳤습니다!");
+//					String Ballstate = hitBall();
+//					int[] scoreSheet = md.getScoreSheet();
+//					int teamPoint = md.getTeamPoint();
+//					md.playUpdate(Ballstate);
+//					System.out.println("다음 선수");
+//					hitterNum++;
+//				}
+//				//공을 못쳤을때
+//				else {
+//					//스트라이크 당함
+//					System.out.println("스트라이크");
+//					int strikeCnt = md.getStrikeCount();
+//					strikeCnt++;
+//					if(strikeCnt >= 3) {
+//						//삼진아웃
+//						System.out.println("삼진아웃");
+//						md.setStrikeCount(0);
+//						outCnt++;
+//						System.out.println("다음 선수");
+//						hitterNum++;
+//					}
+//					
+//					
+//					
+//				}
+//			}
+//			
+//			//수비상황
+//			else {
+//				System.out.print("투수를 선택해주세요 : ");
+//				pitcherNum = sc.nextInt();
+//				md.setPitcherNum(pitcherNum);
+//				
+//				System.out.println("수비");
+//				System.out.println("현재팀 점수 : " + md.getTeamPoint() + "적팀 점수 : " + md.getEnemyPoint());
+//				System.out.print(pitcherNum + "번 이름 :  " + charName[pitcherNum-1]);
+//				System.out.print(" 투구력 : " + charInfo[pitcherNum-1][1] + " ");
+//				System.out.print(" 강화상태 : " + charInfo[pitcherNum-1][2] + " ");
+//				System.out.println();
+//				
+//				
+//				
+//			}
+//			
+//			//아웃 3회 공수교대
+//			if(outCnt >= 3) {
+//				System.out.println("공수교대");
+//				int odState = md.getOdState();
+//				//공격 -> 수비
+//				if(odState == 0) {
+//					System.out.print("이번 게임 투수를 선택해주세요");
+//					pitcherNum = sc.nextInt();
+//					if(pitcherNum < 1 && pitcherNum > 5) {
+//						System.out.println("잘못된 번호 입력");
+//					}
+//					else {
+//						//투수 번호 초기값 설정
+//						md.setPitcherNum(pitcherNum);
+//					}
+//					md.setOdState(1);
+//					nowRound++;
+//				}
+//				//수비 -> 공격
+//				else {
+//					nowRound++;
+//					md.setNowRound(nowRound);
+//					md.setOdState(0);;
+//				}
+//			}
+//			
+//			if(nowRound == maxRound) {
+//			System.out.println(maxRound + "끝 게임종료");
+//			break;
+//			}
+//			
+//		}
 		
 		
 	
