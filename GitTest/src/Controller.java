@@ -172,35 +172,117 @@ public class Controller {
 	}
 	
 	//볼을 쳤는지 
-	public boolean isHitBall(model md) { 
+	public boolean isHitBall(model md, int actNum, int comNum) { 
 		
 		int random = rd.nextInt(100)+1; 
-		System.out.println("랜덤수 : " + random); 
+		int percent = 40;
+		//System.out.println("랜덤수 : " + random); 
+		// 공격 번트[1] 스윙[2] 강스윙[3]
+		// 수비 변화구[1] 슬라이더[2] 직구[3]
+		//유저의 공격
+		if(md.getOdState() == 0) {
+			//유저의 스윙일때 컴퓨터의 변화구, 직구
+			if(actNum == 2) {
+				if(comNum == 1) {
+					percent += 10;
+				}
+				if(comNum == 3) {
+					percent -= 10;
+				}
+			}
+			//유저의 강스윙일때 컴퓨터의 변화구, 직구
+			if(actNum == 3) {
+				if(comNum == 1) {
+					percent -= 10;
+				}
+				if(comNum == 3) {
+					percent += 10;
+				}
+			}
+			else {
+				percent = 70;
+			}
+		}
+		else{
+			//컴퓨터의 스윙일때 유저의 변화구, 직구
+			if(comNum == 2) {
+				if(actNum == 1) {
+					percent += 20;
+				}
+				if(actNum == 3) {
+					percent -= 10;
+				}
+			}
+			//컴퓨터의 강스윙일때 유저의 변화구, 직구
+			if(comNum == 3) {
+				if(actNum == 1) {
+					percent -= 10;
+				}
+				if(actNum == 3) {
+					percent += 15;
+				}
+			}
+			else {
+				percent = 70;
+			}
+		}
 		
-		if(random <= 35) { 
+		if(random <= percent) { 
 			return true;
-		}return false;
+		}
+		return false;
 		
 	}
 	
 	//쳤을때 결과 
-	public String hitBall(model md) {
+	public String hitBall(model md, int actNum) {
 		
 		int random = rd.nextInt(100)+1;
 		//System.out.println("랜덤수 : " + random); 
+		//번트 1루타 40% 2루타 0%  3루타 0%  아웃 30% 파울 10% 홈런 0%
+		//스윙 1루타 25% 2루타 25% 3루타 20% 아웃 10% 파울 10% 홈런 10%
+		//강스윙 1루타 25% 2루타 15% 3루타 10%  아웃 20% 파울 10% 홈런 20%
 		
-		if(random <= 20) { 
-			return "ONEBASE";
-		}else if(random <= 40) {
-			return "DOUBLE";
-		}else if(random <= 50) { 
-			return "TRIPLE";
-		}else if(random <= 80) { 
-			return "OUT";
-		}else if(random <= 90) {
-			return "FOUL";
-		}else { 
-			return "HOMERUN";
+		if(actNum == 1)
+		{
+			if(random <= 40) { 
+				return "1루타";
+			}else if(random <= 80) { 
+				return "아웃";
+			}
+			else{
+				return "파울";
+			}
+		}
+		else if(actNum == 2){
+			if(random <= 25) { 
+				return "1루타";
+			}else if(random <= 50) {
+				return "2루타";
+			}else if(random <= 70) { 
+				return "3루타";
+			}else if(random <= 80) { 
+				return "아웃";
+			}else if(random <= 90) {
+				return "파울";
+			}else { 
+				return "홈런";
+			}
+		}
+		else{
+			if(random <= 25) { 
+				return "1루타";
+			}else if(random <= 40) {
+				return "2루타";
+			}else if(random <= 50) { 
+				return "3루타";
+			}else if(random <= 70) { 
+				return "아웃";
+			}else if(random <= 80) {
+				return "파울";
+			}else { 
+				return "홈런";
+			}
 		}
 	}
 	
