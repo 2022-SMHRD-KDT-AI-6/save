@@ -41,8 +41,13 @@ public class model {
 	private String user_pw; // 현재 사용자가 입력한 password
 	private String user_money; // 돈
 	
+	public model() {
+		
+	}
 	
-	
+	public model(String rm) {
+		this.user_id = rm;
+	}
 	public int getMaxRound() {
 		return maxRound;
 	}
