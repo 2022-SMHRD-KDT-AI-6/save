@@ -160,7 +160,7 @@ public class Controller {
 
 		md.setCharInfo(changeTurn);
 
-		charUpdate();
+		// charUpdate();
 	}
 
 	Random rd = new Random();
