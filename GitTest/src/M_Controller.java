@@ -35,7 +35,6 @@ public class M_Controller {
 		}
 		finally {
 			
-		
 		}
 		 md.setCharName(name_arr);
 	}
