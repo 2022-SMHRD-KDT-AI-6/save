@@ -41,7 +41,9 @@ public class View {
 					
 					if(con.loginId(md)) {
 						System.out.println("로그인 성공!");
-						//con.bringUserInfo(md);
+						model md2 = con.bringCharInfo(md);
+						String[] charName = md2.getCharName();
+						md.setCharName(charName);
 						game_page = "메인메뉴";
 					}
 					else {
@@ -95,7 +97,7 @@ public class View {
 						if(con.checkChar(md) == false) { //DB에 캐릭터가 없다면
 							viewMakeChar(md); //캐릭터 생성시작
 						}
-						else { //DB에 캐릭터가 없음
+						else { //DB에 캐릭터가 있음
 							System.out.println("캐릭터를 생성할수없습니다.");
 						}
 						
@@ -120,8 +122,9 @@ public class View {
 					System.out.println("=====캐릭터 확인=====");
 					
 					//캐릭터가 있다면 
-					if(con.checkChar(md) == false) {
-						String[] charName = md.getCharName();
+					if(con.checkChar(md) == true) {
+						model md2 = con.bringCharInfo(md);
+						String[] charName = md2.getCharName();
 							
 							for(int i = 0; i < charName.length; i++) {
 								System.out.println((i+1) + "번 이름 : " + charName[i]);
@@ -431,6 +434,7 @@ public class View {
 			if(checkName(character)) {
 				md.setCharName(character);
 				System.out.println("캐릭터 생성 성공!");
+				con.makeChar(md);
 			}
 			//생성한 캐릭터 중복 있음
 			else {

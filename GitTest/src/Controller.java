@@ -109,22 +109,20 @@ public class Controller {
 		}
 	}
 	//캐릭터삭제
-	public int deleteChar(model md) {
-	getCon();
-	
-	boolean result = true;
-	try {
-		String sql = "delete from char_info where user_id = ?";
-		psmt = conn.prepareStatement(sql); 
-		psmt.setString(1, md.getUser_id());
-		row = psmt.executeUpdate();
-	} catch (SQLException e) {
-		System.out.println("드라이버 로딩 오류");
-		e.printStackTrace();
-	} finally {
-		close();
-	}
-	return row;
+	public void deleteChar(model md) {
+		getCon();
+		
+		try {
+			String sql = "delete from char_info where id = ?";
+			psmt = conn.prepareStatement(sql); 
+			psmt.setString(1, md.getUser_id());
+			row = psmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("드라이버 로딩 오류");
+			e.printStackTrace();
+		} finally {
+			close();
+		}
 	}
 	//캐릭터 존재 확인
 	public boolean checkChar(model md) {
@@ -285,20 +283,20 @@ public class Controller {
 	
 //	model md = new model();
 	// 캐릭터 정보 찾기
-	public void bringCharInfo(model md) {
+	public model bringCharInfo(model md) {
 		getCon();
 		
-		String[] name_arr = new String[5]; 
+		String[] name_arr = new String[5];
 		int num = 0;
 		
 		try {
-			String sql = "selelct name from char_info where id = ?";
+			String sql = "select name from char_info where id = ?";
 			psmt = conn.prepareStatement(sql);
 			
 			psmt.setString(1, md.getUser_id());
 			rs = psmt.executeQuery();
 			while(rs.next()) {
-				name_arr[num] = rs.getString(2);
+				name_arr[num] = rs.getString(1);
 				num++;
 			}
 		
@@ -311,7 +309,8 @@ public class Controller {
 			close();
 		}
 		 md.setCharName(name_arr);
-	}//bringcharinfo end
+		 return md;
+	}
 
 }//Controller end
 
