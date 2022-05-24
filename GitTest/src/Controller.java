@@ -195,7 +195,7 @@ public class Controller {
 		}
 	}
 	
-public void playUpdate(model md, String gameState) { // 게임 정보 업데이트
+public void playUpdate(model md, String gameState) {
 		
 		int odState = md.getOdState();
 		int teamPoint = md.getTeamPoint();
@@ -203,41 +203,41 @@ public void playUpdate(model md, String gameState) { // 게임 정보 업데이트
 		int strikeCount = md.getStrikeCount();
 		int outCount = md.getOutCount();
 		
-		if(odState==0) { // 공격일 때
-			switch(gameState) { // 공 치고 나서의 결과
-			case "ONEBASE": // 1루
+		if(odState==0) {
+			switch(gameState) { 
+			case "ONEBASE": 
 				teamPoint += 1;
 				md.setTeamPoint(teamPoint);
-				System.out.println("teamPoint : " + teamPoint); // 확인
+				System.out.println("teamPoint : " + teamPoint); 
 				break;
-			case "DOUBLE": // 2루
+			case "DOUBLE": 
 				teamPoint += 3;
 				md.setTeamPoint(teamPoint);
-				System.out.println("teamPoint : " + teamPoint);// 확인
+				System.out.println("teamPoint : " + teamPoint);
 				break;
-			case "TRIPLE": // 3루
+			case "TRIPLE": 
 				teamPoint += 5;
 				md.setTeamPoint(teamPoint);
-				System.out.println("teamPoint : " + teamPoint);// 확인
+				System.out.println("teamPoint : " + teamPoint);
 				break;
-			case "HOMERUN": // 홈런
+			case "HOMERUN": 
 				teamPoint += 10;
 				md.setTeamPoint(teamPoint);
-				System.out.println("teamPoint : " + teamPoint);// 확인
+				System.out.println("teamPoint : " + teamPoint);
 				break;
-			case "FOUL": // 파울
+			case "FOUL": 
 				strikeCount += 1;
 				md.setStrikeCount(strikeCount);
 				System.out.println("strikeCount : " + strikeCount);
 				break;
-			case "OUT": // 아웃
+			case "OUT":
 				outCount += 1;
 				md.setOutCount(outCount);
 				System.out.println("outCount : " + outCount);// 확인
 				break;
 			}
-		}else {//수비
-			switch(gameState) { // 상대방 타자가 치고 난 결과
+		}else {
+			switch(gameState) {
 			case "STRIKE":
 				strikeCount += 1;
 				md.setStrikeCount(strikeCount);
