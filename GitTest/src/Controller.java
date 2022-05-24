@@ -1,10 +1,12 @@
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
+
+import 미니프로젝트.model;
 
 public class Controller {
 
@@ -57,9 +59,8 @@ public class Controller {
 			psmt.setString(1, md.getUser_id());
 			psmt.setString(2, md.getUser_pw());
 			rs = psmt.executeQuery();
-			result =rs.next();
-			
-				
+			result = rs.next();
+
 		} catch (SQLException e) {
 			System.out.println("DB 오류");
 			e.printStackTrace();
@@ -78,16 +79,16 @@ public class Controller {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, md.getUser_id());
 			rs = psmt.executeQuery();
-	
+
 			if (rs.next()) {
 				return false;
-			}else {
-			
+			} else {
+
 				sql = "insert into user_info values(?, ? ,0)";
 				psmt = conn.prepareStatement(sql);
 				psmt.setString(1, md.getUser_id());
 				psmt.setString(2, md.getUser_pw());
-			
+
 				row = psmt.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -96,8 +97,7 @@ public class Controller {
 		} finally {
 			close();
 		}
-	
-		
+
 		if (row != 0) {
 			return true;
 		} else {
@@ -114,7 +114,7 @@ public class Controller {
 			psmt.setString(1, md.getUser_id());
 			rs = psmt.executeQuery();
 			result = rs.next();
-		
+
 		} catch (SQLException e) {
 			System.out.println("DB 오류");
 			e.printStackTrace();
@@ -124,10 +124,57 @@ public class Controller {
 		}
 		return result;
 	}
-	
-	
-	
 
+	model md = new model();
 
+	public void changeCharTurn() { 
 
+		int charInfo[][] = md.getCharInfo(); 
+
+		int changeTurn[][] = new int[5][4]; 
+		int num = 0; 
+
+		for (int i = 0; i < charInfo.length; i++) {
+			num = charInfo[i][3]; 
+			for (int j = 0; j < charInfo[i].length; j++) {
+				changeTurn[num - 1][j] = charInfo[i][j];
+			}
+		}
+
+		md.setCharInfo(changeTurn);
+
+		charUpdate();
+	}
+
+	Random rd = new Random();
+	public boolean isHitBall(model md) { 
+		
+		int random = rd.nextInt(100)+1; 
+		System.out.println("랜덤수 : " + random); 
+		
+		if(random <= 35) { 
+			return true;
+		}return false;
+		
+	}
+	
+	public String hitBall(model md) {
+		
+		int random = rd.nextInt(100)+1;
+		System.out.println("랜덤수 : " + random); 
+		
+		if(random <= 20) { 
+			return "ONEBASE";
+		}else if(random <= 40) {
+			return "DOUBLE";
+		}else if(random <= 50) { 
+			return "TRIPLE";
+		}else if(random <= 80) { 
+			return "OUT";
+		}else if(random <= 90) {
+			return "FOUL";
+		}else { 
+			return "HOMERUN";
+		}
+	}
 }
