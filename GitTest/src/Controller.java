@@ -135,7 +135,11 @@ public class Controller {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, md.getUser_id());
 			rs = psmt.executeQuery();
-			result = rs.next();
+			if (rs.next()) {
+				result = true;
+			} else {
+				result = false;
+			}
 
 		} catch (SQLException e) {
 			System.out.println("DB 오류");
@@ -145,6 +149,28 @@ public class Controller {
 			close();
 		}
 		return result;
+	}
+	//캐릭터 만들기
+	public void makeChar(model md) {
+		// String[] charName = new String[5];
+		String[] charName = md.getCharName();
+		getCon();
+		try {
+			for (int k = 0; k < 5; k++) {
+				String sql = "insert into char_info  values(?, ?)";
+				psmt = conn.prepareStatement(sql);
+				psmt.setString(1, md.getUser_id());
+				psmt.setString(2, charName[k]);
+				row = psmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			System.out.println("DB 오류");
+			e.printStackTrace();
+		} finally {
+
+			close();
+		}
+
 	}
 	
 	//볼을 쳤는지 
