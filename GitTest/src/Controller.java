@@ -252,8 +252,40 @@ public class Controller {
 				md.setStrikeCount(strikeCount);
 				break;
 			
+			}//switch end
+		}//else end
+	}// playUpdate end
+	
+	
+//	model md = new model();
+	// 캐릭터 정보 찾기
+	public void bringCharInfo(model md) {
+		getCon();
+		
+		String[] name_arr = new String[5]; 
+		int num = 0;
+		
+		try {
+			String sql = "selelct name from char_info where id = ?";
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, md.getUser_id());
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				name_arr[num] = rs.getString(2);
+				num++;
 			}
+		
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	}
-	}
+		finally {
+			close();
+		}
+		 md.setCharName(name_arr);
+	}//bringcharinfo end
+
+}//Controller end
 
