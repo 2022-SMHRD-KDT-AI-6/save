@@ -37,11 +37,11 @@ public class View {
 					md.setUser_id(id);
 					System.out.print("PW >> ");
 					pw = sc.next();
-					md.setUser_pw(id);
+					md.setUser_pw(pw); // 이거 id라고 써놓음...
 					
 					if(con.loginId(md)) {
 						System.out.println("로그인 성공!");
-						bringUserInfo();
+						//con.bringUserInfo(md);
 						game_page = "메인메뉴";
 					}
 					else {
@@ -73,18 +73,19 @@ public class View {
 				
 				break;
 				
-//-----------------------------------------------------------------------------
-				
+//----------------------------------------------------------------------------------------
+				//메인메뉴
 			case("메인메뉴"):
 				System.out.println("=====메인메뉴=====");
-				System.out.println("게임시작[1] 캐릭터 생성 또는 삭제[2] 강화소[3] 정보확인(변경)[4] 종료[5]");
+				System.out.println("게임시작[1] 캐릭터 생성 또는 삭제[2] 캐릭터 확인[3] 종료[4]");
 				user_select = sc.nextInt();
-				
+//----------------------------------------------------------------------------------------				
 				//게임시작
 				if(user_select == 1) { 
-					viewGameStart();
+					//viewGameStart(md);
+					System.out.println("미구현");
 				}
-				
+//----------------------------------------------------------------------------------------				
 				// 캐릭터 생성 또는 삭제
 				else if(user_select == 2) { 
 					System.out.println("=====캐릭터 생성 또는 삭제=====");
@@ -92,8 +93,8 @@ public class View {
 					user_select = sc.nextInt();
 					
 					if(user_select == 1) { // 캐릭터 생성
-						if(checkChar() == false) { //DB에 캐릭터가 없다면
-							viewMakeChar(); //캐릭터 생성시작
+						if(con.checkChar(md) == false) { //DB에 캐릭터가 없다면
+							viewMakeChar(md); //캐릭터 생성시작
 						}
 						else { //DB에 캐릭터가 없음
 							System.out.println("캐릭터를 생성할수없습니다.");
@@ -101,9 +102,9 @@ public class View {
 						
 					}
 					else if(user_select == 2) { //캐릭터 삭제
-						if(checkChar()) {
+						if(con.checkChar(md)) {
 							System.out.println("캐릭터 삭제 완료");
-							deleteChar(); //캐릭터 삭제
+							con.deleteChar(md); //캐릭터 삭제
 						}
 						else { // 삭제할 캐릭터가 없음
 							System.out.println("삭제할 캐릭터가 없습니다.");
@@ -113,147 +114,106 @@ public class View {
 						System.out.println("잘못된 번호 입력");
 					}	
 				}
-
-				// 강화소
+//----------------------------------------------------------------------------------------
+					
+				// 캐릭터 확인
 				else if(user_select == 3) {
-					if(checkChar()) {
-						viewenhaceChar();				
-					}
+					System.out.println("=====캐릭터 확인=====");
+					
+					//캐릭터가 있다면 
+					if(con.checkChar(md) == false) {
+						String[] charName = md.getCharName();
+							
+							for(int i = 0; i < charName.length; i++) {
+								System.out.println((i+1) + "번 이름 : " + charName[i]);
+							}
+						}
 					else {
-						System.out.println("강화할 캐릭터가 없습니다");
-					}
-					
-					
+						System.out.println("캐릭터가 없습니다.");
+					}		
 				}
-				// 정보확인(변경)
-				else if(user_select == 4) {
-					System.out.println("=====정보확인(변경)=====");
-					System.out.println("성적확인[1] 캐릭터 성적확인[2] 타자순서바꾸기[3] 메인메뉴[4]");
-					user_select = sc.nextInt();
-					
-					//사용자 성적 조회
-					if(user_select == 1) {
-						int[] userGrade = md.getUserGrade();
-						System.out.println("=====성적확인=====");
-						System.out.print("게임 : " + userGrade[0]);
-						System.out.print("승리 : " + userGrade[1]);
-						System.out.print("패배 : " + userGrade[2]);
-						System.out.print("무승부 : " + userGrade[3]);
-						System.out.print("무승부 : " + userGrade[4]);
-						System.out.println("총 흭득 점수 : " + userGrade[5]);
-					}
-					//캐릭터 성적 조회
-					else if(user_select == 2) {
-						if(checkChar() == false) { //캐릭터가 있는지 확인
-							int[][] charAllGrade = md.getCharAllGrade();
-							String[] charName = md.getCharName();
-							
-							for(int i = 0; i < charAllGrade.length; i++) {
-								System.out.print("이름 : " + charName[i]);
-								System.out.print(" 투수 정보 >> 스트라이크 : " + charAllGrade[i][0]);
-								System.out.print(" 삼진아웃 : " + charAllGrade[i][1]);
-								System.out.print(" || 타자 정보 >> 타석 : " + charAllGrade[i][2]);
-								System.out.print(" 1루타 : " + charAllGrade[i][3]);
-								System.out.print(" 2루타 : " + charAllGrade[i][4]);
-								System.out.print(" 3루타 : " + charAllGrade[i][5]);
-								System.out.println(" 홈런 : " + charAllGrade[i][6]);
-							}
-						}
-						else {
-							System.out.println("캐릭터가 없습니다.");
-						}
-					}
-					//타자 순서 바꾸기
-					else if(user_select == 3) {
-						//캐릭터가 있다면 순번 교체 시작
-						if(checkChar() == false) {
-							int[][] charInfo = md.getCharInfo();
-							String[] charName = md.getCharName();
-							int[] turn = {0,0,0,0,0};
-							
-						
-							for(int i = 0; i < 5; i++) {
-								
-								for(int j = 0; j < charInfo.length; j++) {
-									System.out.print((j+1) + "번 이름 :  " + charName[i]);
-									System.out.print(" 타구력 : " + charInfo[j][0] + " ");
-									System.out.print(" 투구력 : " + charInfo[j][1] + " ");
-									System.out.print(" 강화상태 : " + charInfo[j][2] + " ");
-									System.out.print(" 순번 : " + charInfo[j][3] + " ");
-									System.out.println();
-									}
-								
-								System.out.print((i+1) + "번 타자 선택 >>");
-								user_select = sc.nextInt();
-								
-								if(user_select < 1 || user_select > 5 || turn[user_select-1] !=0 ) {
-									System.out.println("잘못된 번호 입력");
-									i--;
-								}
-								else {
-									turn[user_select-1] = user_select;
-									charInfo[user_select-1][3] = i+1;
-								}
-								
-							}
-							md.setCharInfo(charInfo);
-							System.out.println("타순 변경 완료");
-						}
-						//캐릭터없으면 메인메뉴로
-						else {
-							System.out.println("캐릭터가 없습니다.");
-						}
-						
-					}
-					//메인 메뉴
-					else if(user_select == 4) {
-						System.out.println("메인메뉴로 이동");
-					}
-				}
+//----------------------------------------------------------------------------------------				
 				// 종료
-				else if(user_select == 5) {
+				else if(user_select == 4) {
 					System.out.println("게임종료");
 					game_page = "게임종료";
 				}
-				
 			}
-			
+//----------------------------------------------------------------------------------------
+			//게임종료면 while 탈출
 			if(game_page.equals("게임종료")) {
 				break;
 			}
 		}
 
+		
 	}
-	public static boolean loginId() {
-		return true;
-	}
-	public static void bringUserInfo() {
-	}
-	
-	public static boolean makeId() {
-		return true;
-	}
-	public static boolean checkChar() {
-		return false;
-	}
-	public static void makeChar(String[] character) {
-	}
-	public static void deleteChar() {
-	}
-	public static void enhanceChar(int Char_num) {
-	}
-	
-	
-	
 	
 
-	public static void viewGameStart() {
+	public static void viewGameStart(model md) {
+		//1. 치는거, 던지는거, 스트라이크, 쳤다, 아웃, 공수교대, 게임종료
 		Scanner sc = new Scanner(System.in);
-		model md = new model();
 		
 		int maxRound = 0;
-		int pitcherNum = 0;
-		int[][] charInfo = md.getCharInfo();
+		String gameState = "공격";
+		String[] charName = md.getCharName();
+		int actNum = 0;
+		
+		System.out.println("=====게임시작=====");
+		
+		//라운드수 입력
+		do{
+			System.out.print("라운드 수(최대 10) : ");
+			maxRound = sc.nextInt();
+			if(maxRound > 10) {
+				System.out.println("10보다 작게 입력해주세요.");
+			}
+			else {
+				//게임시작전 초기값 설정 라운드수, 현재라운드, 타자번호, 공수상황
+				md.setMaxRound(maxRound);
+				md.setNowRound(1);
+				md.setHitterNum(1);
+				md.setOdState(0);
+				md.setTeamPoint(0);
+				md.setEnemyPoint(0);
+				md.setStrikeCount(0);
+				md.setOutCount(0);
+			}
+		}while(maxRound >= 10);
+		
+		while(true) {
+			switch(gameState) {
+				
+				case("OFFEN"):
+					System.out.println("=====공격=====");
+					System.out.println("팀 포인트 :" + md.getTeamPoint() + "적팀 포인트" + md.getEnemyPoint());
+					System.out.print(md.getHitterNum() + "번 이름 :  " + charName[md.getHitterNum()-1]);
+					System.out.print("번트[1] 스윙[2] 강스윙[3] >> ");
+					actNum = sc.nextInt();
+					
+					if
+					break;
+				case("DEFEN"):
+					break;
+				case("STRIKE"):
+					break;
+				case("HITBALL"):
+					break;
+				case("OUT"):
+					break;
+				case("CHANGE"):
+					break;
+				case("OVER"):
+					break;
+			}
+		}
+		
+		
+		
+	}
+	public static void viewGameStart2(model md) {
+		Scanner sc = new Scanner(System.in);
+		
 		String[] charName = md.getCharName();
 		
 		System.out.println("=====게임시작=====");
@@ -272,39 +232,111 @@ public class View {
 				md.setHitterNum(0);
 				md.setOdState(0);
 			}
-		}
-		while(maxRound >= 10);
+		}while(maxRound >= 10);
 		
-		//캐릭터 정보 출력
-		for(int i = 0; i < charInfo.length; i++) {
-			System.out.print((i+1) + "번 이름 :  " + charName[i]);
-			System.out.print(" 타구력 : " + charInfo[i][0] + " ");
-			System.out.print(" 투구력 : " + charInfo[i][1] + " ");
-			System.out.print(" 강화상태 : " + charInfo[i][2] + " ");
-			System.out.print(" 순번 : " + charInfo[i][3] + " ");
-			System.out.println();
-			}
+		int nowRound = 1;
 		
 		//투수 선택
 		while(true) {
 			//////////////////////////////////////////////////////////여기서부터 진행
-			System.out.print("이번 게임 투수를 선택해주세요");
-			pitcherNum = sc.nextInt();
-			if(pitcherNum < 1 && pitcherNum > 5) {
-				System.out.println("잘못된 번호 입력");
+			int outCnt = 0;
+			//공격상황
+			if(md.getOdState() == 0) {
+				int hitterNum = sc.nextInt();
+				System.out.println("공격상황");
+				System.out.println("현재팀 점수 : " + md.getTeamPoint() + "적팀 점수 : " + md.getEnemyPoint());
+				System.out.print(hitterNum + "번 이름 :  " + charName[hitterNum-1]);
+				System.out.print(" 타구력 : " + charInfo[hitterNum-1][0] + " ");
+				System.out.print(" 강화상태 : " + charInfo[hitterNum-1][2] + " ");
+				System.out.print(" 순번 : " + charInfo[hitterNum-1][3] + " ");
+				System.out.println();
+					
+				System.out.println("타자의 행동 선택>> 번트[1] 스윙[2] 강스윙[3]");
+				md.setActNum(hitterNum);
+				
+				//공을 쳤을때
+				if(isHitBall()) {
+					System.out.println("공을 쳤습니다!");
+					String Ballstate = hitBall();
+					int[] scoreSheet = md.getScoreSheet();
+					int teamPoint = md.getTeamPoint();
+					md.playUpdate(Ballstate);
+					System.out.println("다음 선수");
+					hitterNum++;
+				}
+				//공을 못쳤을때
+				else {
+					//스트라이크 당함
+					System.out.println("스트라이크");
+					int strikeCnt = md.getStrikeCount();
+					strikeCnt++;
+					if(strikeCnt >= 3) {
+						//삼진아웃
+						System.out.println("삼진아웃");
+						md.setStrikeCount(0);
+						outCnt++;
+						System.out.println("다음 선수");
+						hitterNum++;
+					}
+					
+					
+					
+				}
 			}
+			
+			//수비상황
 			else {
-				//투수 번호 초기값 설정
+				System.out.print("투수를 선택해주세요 : ");
+				pitcherNum = sc.nextInt();
 				md.setPitcherNum(pitcherNum);
+				
+				System.out.println("수비");
+				System.out.println("현재팀 점수 : " + md.getTeamPoint() + "적팀 점수 : " + md.getEnemyPoint());
+				System.out.print(pitcherNum + "번 이름 :  " + charName[pitcherNum-1]);
+				System.out.print(" 투구력 : " + charInfo[pitcherNum-1][1] + " ");
+				System.out.print(" 강화상태 : " + charInfo[pitcherNum-1][2] + " ");
+				System.out.println();
+				
+				
+				
+			}
+			
+			//아웃 3회 공수교대
+			if(outCnt >= 3) {
+				System.out.println("공수교대");
+				int odState = md.getOdState();
+				//공격 -> 수비
+				if(odState == 0) {
+					System.out.print("이번 게임 투수를 선택해주세요");
+					pitcherNum = sc.nextInt();
+					if(pitcherNum < 1 && pitcherNum > 5) {
+						System.out.println("잘못된 번호 입력");
+					}
+					else {
+						//투수 번호 초기값 설정
+						md.setPitcherNum(pitcherNum);
+					}
+					md.setOdState(1);
+					nowRound++;
+				}
+				//수비 -> 공격
+				else {
+					nowRound++;
+					md.setNowRound(nowRound);
+					md.setOdState(0);;
+				}
+			}
+			
+			if(nowRound == maxRound) {
+			System.out.println(maxRound + "끝 게임종료");
+			break;
 			}
 			
 		}
 		
 		
-		
-	}
 	
-	public static void viewMakeChar() {
+	public static void viewMakeChar(model md) {
 		
 		Scanner sc = new Scanner(System.in);
 		
@@ -319,16 +351,16 @@ public class View {
 				character[i] = sc.next();					
 			}
 			
-			//생성한 캐릭터 이름 중복확인
+			//생성한 캐릭터 이름 중복없음
 			if(checkName(character)) {
-				makeChar(character); //컨트롤러 부르기
+				md.setCharName(character);
 				System.out.println("캐릭터 생성 성공!");
 			}
+			//생성한 캐릭터 중복 있음
 			else {
 				System.out.println("캐릭터 생성실패");
 				System.out.println("이름을 중복하여 작성했습니다.");
 			}
-		
 	}
 	
 	public static boolean checkName(String[] character) {
@@ -342,52 +374,7 @@ public class View {
 		return true;
 	}
 	
-	public static void viewenhaceChar() {
-		
-		Scanner sc = new Scanner(System.in);
-		model md = new model();
-		
-		int[][] charInfo = md.getCharInfo();
-		String[] charName = md.getCharName();
-		int enhanceNum = 0;
-		int user_select = 0;
-		
-		//캐릭터 정보 출력
-		while(true) {
-			for(int i = 0; i < charInfo.length; i++) {
-			System.out.print((i+1) + "번 이름 :  " + charName[i]);
-			System.out.print(" 타구력 : " + charInfo[i][0] + " ");
-			System.out.print(" 투구력 : " + charInfo[i][1] + " ");
-			System.out.print(" 강화상태 : " + charInfo[i][2] + " ");
-			System.out.print(" 순번 : " + charInfo[i][3] + " ");
-			System.out.println();
-			}
-			
-			System.out.print("강화할 캐릭터 번호 입력 >> ");
-			enhanceNum = sc.nextInt();
-			
-			System.out.println(enhanceNum + "번 이름 : " + charName[enhanceNum - 1] + "\t강화 상태 : " + charInfo[enhanceNum -1][2]);
-			System.out.println("강화[1] 취소[2]");
-			user_select = sc.nextInt();
-			
-			if(user_select == 1) {
-				enhanceChar(enhanceNum);
-				System.out.println(enhanceNum + "번 이름 : " + charName[enhanceNum - 1] + "\t강화 상태 : " + charInfo[enhanceNum -1][2]);
-				System.out.print("강화하기[1] 메인메뉴로[2]");
-				user_select = sc.nextInt();
-				if(user_select != 1) {
-					break;
-				}
-			}
-			else {
-				System.out.println("취소 되었습니다");
-				break;
-			}
-		}
-		
-	}
 	
-	
-	
+
 
 }
