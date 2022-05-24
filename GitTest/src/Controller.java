@@ -104,7 +104,23 @@ public class Controller {
 			return false;
 		}
 	}
-
+	public int deleteChar(model md) {
+	getCon();
+	
+	boolean result = true;
+	try {
+		String sql = "delete from char_info where user_id = ?";
+		psmt = conn.prepareStatement(sql); 
+		psmt.setString(1, md.getUser_id());
+		row = psmt.executeUpdate();
+	} catch (SQLException e) {
+		System.out.println("드라이버 로딩 오류");
+		e.printStackTrace();
+	} finally {
+		close();
+	}
+	return row;
+	}
 	public boolean checkChar(model md) {
 		getCon();
 		boolean result = true;
@@ -177,4 +193,4 @@ public class Controller {
 			return "HOMERUN";
 		}
 	}
-}
+
