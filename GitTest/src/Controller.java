@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
 
+import 미니프로젝트.model;
+
 
 
 public class Controller {
@@ -141,9 +143,8 @@ public class Controller {
 		return result;
 	}
 
-	model md = new model();
 
-	public void changeCharTurn() { 
+	public void changeCharTurn(model md) { 
 
 		int charInfo[][] = md.getCharInfo(); 
 
@@ -193,4 +194,81 @@ public class Controller {
 			return "HOMERUN";
 		}
 	}
+	
+public void playUpdate(model md, String gameState) { // 게임 정보 업데이트
+		
+		int odState = md.getOdState();
+		int teamPoint = md.getTeamPoint();
+		int enemyPoint = md.getEnemyPoint();
+		int strikeCount = md.getStrikeCount();
+		int outCount = md.getOutCount();
+		
+		if(odState==0) { // 공격일 때
+			switch(gameState) { // 공 치고 나서의 결과
+			case "ONEBASE": // 1루
+				teamPoint += 1;
+				md.setTeamPoint(teamPoint);
+				System.out.println("teamPoint : " + teamPoint); // 확인
+				break;
+			case "DOUBLE": // 2루
+				teamPoint += 3;
+				md.setTeamPoint(teamPoint);
+				System.out.println("teamPoint : " + teamPoint);// 확인
+				break;
+			case "TRIPLE": // 3루
+				teamPoint += 5;
+				md.setTeamPoint(teamPoint);
+				System.out.println("teamPoint : " + teamPoint);// 확인
+				break;
+			case "HOMERUN": // 홈런
+				teamPoint += 10;
+				md.setTeamPoint(teamPoint);
+				System.out.println("teamPoint : " + teamPoint);// 확인
+				break;
+			case "FOUL": // 파울
+				strikeCount += 1;
+				md.setStrikeCount(strikeCount);
+				System.out.println("strikeCount : " + strikeCount);
+				break;
+			case "OUT": // 아웃
+				outCount += 1;
+				md.setOutCount(outCount);
+				System.out.println("outCount : " + outCount);// 확인
+				break;
+			}
+		}else {//수비
+			switch(gameState) { // 상대방 타자가 치고 난 결과
+			case "STRIKE":
+				strikeCount += 1;
+				md.setStrikeCount(strikeCount);
+				break;
+			case "OUT":
+				outCount += 1;
+				md.setOutCount(outCount);
+				break;
+			case "ONEBASE":
+				enemyPoint += 1;
+				md.setEnemyPoint(enemyPoint);
+				break;
+			case "DOUBLE":
+				enemyPoint += 3;
+				md.setEnemyPoint(enemyPoint);
+				break;
+			case "TRIPLE":
+				enemyPoint += 5;
+				md.setEnemyPoint(enemyPoint);
+				break;
+			case "HOMERUN":
+				enemyPoint += 10;
+				md.setEnemyPoint(enemyPoint);
+				break;
+			case "FOUL":
+				strikeCount += 1;
+				md.setStrikeCount(strikeCount);
+				break;
+			
+			}
+		}
+	}
+}
 
