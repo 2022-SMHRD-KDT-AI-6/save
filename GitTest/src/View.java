@@ -4,18 +4,18 @@ import java.util.Random;
 public class View {
 
 	public static void main(String[] args) {
-		//È­¸é
-//		°¡ÀÔ·Î±×ÀÎ -> ·Î±×ÀÎ, È¸¿ø°¡ÀÔ
+		//í™”ë©´
+//		ê°€ì…ë¡œê·¸ì¸ -> ë¡œê·¸ì¸, íšŒì›ê°€ì…
 		
-//		¸ŞÀÎ¸Ş´º -> °ÔÀÓ / »ı¼º»èÁ¦ / °­È­ / Á¤º¸È®ÀÎº¯°æ / °ÔÀÓÁ¾·á
-//		»ı¼º»èÁ¦ -> »ı¼º / »èÁ¦
-//		Á¤º¸È®ÀÎº¯°æ -> À¯ÀúÁ¤º¸ / Ä³¸¯ÅÍÁ¤º¸ / Å¸¼ø 
+//		ë©”ì¸ë©”ë‰´ -> ê²Œì„ / ìƒì„±ì‚­ì œ / ê°•í™” / ì •ë³´í™•ì¸ë³€ê²½ / ê²Œì„ì¢…ë£Œ
+//		ìƒì„±ì‚­ì œ -> ìƒì„± / ì‚­ì œ
+//		ì •ë³´í™•ì¸ë³€ê²½ -> ìœ ì €ì •ë³´ / ìºë¦­í„°ì •ë³´ / íƒ€ìˆœ 
 		
 		Scanner sc = new Scanner(System.in);
 		Controller con = new Controller();
 		model md = new model();
 		
-		String game_page = "°¡ÀÔ·Î±×ÀÎ";
+		String game_page = "ê°€ì…ë¡œê·¸ì¸";
 		int user_select = -1;
 		String id = "";
 		String pw = "";
@@ -25,40 +25,40 @@ public class View {
 			
 			switch(game_page) {
 			
-			case("°¡ÀÔ·Î±×ÀÎ"):
-				System.out.println("=====¾ß±¸°ÔÀÓ=====");
-				System.out.print("·Î±×ÀÎ[1] È¸¿ø°¡ÀÔ[2] >> ");
+			case("ê°€ì…ë¡œê·¸ì¸"):
+				System.out.println("=====ì•¼êµ¬ê²Œì„=====");
+				System.out.print("ë¡œê·¸ì¸[1] íšŒì›ê°€ì…[2] >> ");
 				user_select = sc.nextInt();
 				
 				if(user_select == 1) { 
-					//·Î±×ÀÎ
+					//ë¡œê·¸ì¸
 					clearScreen();
-					System.out.println("=====·Î±×ÀÎ=====");
-					System.out.println("ID¿Í PW¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+					System.out.println("=====ë¡œê·¸ì¸=====");
+					System.out.println("IDì™€ PWë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
 					System.out.print("ID >> ");
 					id = sc.next();
 					md.setUser_id(id);
 					System.out.print("PW >> ");
 					pw = sc.next();
-					md.setUser_pw(pw); // ÀÌ°Å id¶ó°í ½á³õÀ½...
+					md.setUser_pw(pw); // ì´ê±° idë¼ê³  ì¨ë†“ìŒ...
 					
 					if(con.loginId(md)) {
 						clearScreen();
-						System.out.println("·Î±×ÀÎ ¼º°ø!");
+						System.out.println("ë¡œê·¸ì¸ ì„±ê³µ!");
 						model md2 = con.bringCharInfo(md);
 						String[] charName = md2.getCharName();
 						md.setCharName(charName);
-						game_page = "¸ŞÀÎ¸Ş´º";
+						game_page = "ë©”ì¸ë©”ë‰´";
 					}
 					else {
 					clearScreen();
-					System.out.println("·Î±×ÀÎ ½ÇÆĞ");
+					System.out.println("ë¡œê·¸ì¸ ì‹¤íŒ¨");
 					}
 				}
-				// È¸¿ø°¡ÀÔ
+				// íšŒì›ê°€ì…
 				else if(user_select == 2) {
-					System.out.println("=====È¸¿ø°¡ÀÔ=====");
-					System.out.println("°¡ÀÔÇÒ ID¿Í PW¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+					System.out.println("=====íšŒì›ê°€ì…=====");
+					System.out.println("ê°€ì…í•  IDì™€ PWë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
 					System.out.print("ID >> ");
 					id = sc.next();
 					md.setUser_id(id);
@@ -66,101 +66,101 @@ public class View {
 					pw = sc.next();
 					md.setUser_pw(pw);
 					
-					if(con.makeId(md)) { //¾ÆÀÌµğ »ı¼º ½Ãµµ
+					if(con.makeId(md)) { //ì•„ì´ë”” ìƒì„± ì‹œë„
 						clearScreen();
-						System.out.println("¾ÆÀÌµğ »ı¼º ¼º°ø!");
+						System.out.println("ì•„ì´ë”” ìƒì„± ì„±ê³µ!");
 					}
 					else {
 						clearScreen();
-						System.out.println("ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµğÀÔ´Ï´Ù.");
+						System.out.println("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.");
 					}
 				}
 				
 				else {
-					System.out.println("¼ıÀÚ¸¦ Àß¸ø ÀÔ·ÂÇÏ¼Ì½À´Ï´Ù.");
+					System.out.println("ìˆ«ìë¥¼ ì˜ëª» ì…ë ¥í•˜ì…¨ìŠµë‹ˆë‹¤.");
 				}
 				
 				break;
 				
 //----------------------------------------------------------------------------------------
-				//¸ŞÀÎ¸Ş´º
-			case("¸ŞÀÎ¸Ş´º"):
-				System.out.println("=====¸ŞÀÎ¸Ş´º=====");
-				System.out.println("°ÔÀÓ½ÃÀÛ[1] Ä³¸¯ÅÍ »ı¼º ¶Ç´Â »èÁ¦[2] Ä³¸¯ÅÍ È®ÀÎ[3] Á¾·á[4]");
-				System.out.print("¼±ÅÃ >> ");
+				//ë©”ì¸ë©”ë‰´
+			case("ë©”ì¸ë©”ë‰´"):
+				System.out.println("=====ë©”ì¸ë©”ë‰´=====");
+				System.out.println("ê²Œì„ì‹œì‘[1] ìºë¦­í„° ìƒì„± ë˜ëŠ” ì‚­ì œ[2] ìºë¦­í„° í™•ì¸[3] ì¢…ë£Œ[4]");
+				System.out.print("ì„ íƒ >> ");
 				user_select = sc.nextInt();
 //----------------------------------------------------------------------------------------				
-				//°ÔÀÓ½ÃÀÛ
+				//ê²Œì„ì‹œì‘
 				if(user_select == 1) { 
 					clearScreen();
 					viewGameStart(md);
 				}
 //----------------------------------------------------------------------------------------				
-				// Ä³¸¯ÅÍ »ı¼º ¶Ç´Â »èÁ¦
+				// ìºë¦­í„° ìƒì„± ë˜ëŠ” ì‚­ì œ
 				else if(user_select == 2) { 
 					clearScreen();
-					System.out.println("=====Ä³¸¯ÅÍ »ı¼º ¶Ç´Â »èÁ¦=====");
-					System.out.println("Ä³¸¯ÅÍ »ı¼º[1] Ä³¸¯ÅÍ »èÁ¦[2]");
+					System.out.println("=====ìºë¦­í„° ìƒì„± ë˜ëŠ” ì‚­ì œ=====");
+					System.out.println("ìºë¦­í„° ìƒì„±[1] ìºë¦­í„° ì‚­ì œ[2]");
 					user_select = sc.nextInt();
 					
-					if(user_select == 1) { // Ä³¸¯ÅÍ »ı¼º
-						if(con.checkChar(md) == false) { //DB¿¡ Ä³¸¯ÅÍ°¡ ¾ø´Ù¸é
-							viewMakeChar(md); //Ä³¸¯ÅÍ »ı¼º½ÃÀÛ
+					if(user_select == 1) { // ìºë¦­í„° ìƒì„±
+						if(con.checkChar(md) == false) { //DBì— ìºë¦­í„°ê°€ ì—†ë‹¤ë©´
+							viewMakeChar(md); //ìºë¦­í„° ìƒì„±ì‹œì‘
 						}
-						else { //DB¿¡ Ä³¸¯ÅÍ°¡ ÀÖÀ½
+						else { //DBì— ìºë¦­í„°ê°€ ìˆìŒ
 							clearScreen();
-							System.out.println("Ä³¸¯ÅÍ¸¦ »ı¼ºÇÒ¼ö¾ø½À´Ï´Ù.");
+							System.out.println("ìºë¦­í„°ë¥¼ ìƒì„±í• ìˆ˜ì—†ìŠµë‹ˆë‹¤.");
 						}
 						
 					}
-					else if(user_select == 2) { //Ä³¸¯ÅÍ »èÁ¦
+					else if(user_select == 2) { //ìºë¦­í„° ì‚­ì œ
 						if(con.checkChar(md)) {
 							clearScreen();
-							System.out.println("Ä³¸¯ÅÍ »èÁ¦ ¿Ï·á");
-							con.deleteChar(md); //Ä³¸¯ÅÍ »èÁ¦
+							System.out.println("ìºë¦­í„° ì‚­ì œ ì™„ë£Œ");
+							con.deleteChar(md); //ìºë¦­í„° ì‚­ì œ
 						}
-						else { // »èÁ¦ÇÒ Ä³¸¯ÅÍ°¡ ¾øÀ½
+						else { // ì‚­ì œí•  ìºë¦­í„°ê°€ ì—†ìŒ
 							clearScreen();
-							System.out.println("»èÁ¦ÇÒ Ä³¸¯ÅÍ°¡ ¾ø½À´Ï´Ù.");
+							System.out.println("ì‚­ì œí•  ìºë¦­í„°ê°€ ì—†ìŠµë‹ˆë‹¤.");
 						}
 					}
-					else { // Àß¸øµÈ ¹øÈ£ ÀÔ·Â
+					else { // ì˜ëª»ëœ ë²ˆí˜¸ ì…ë ¥
 						clearScreen();
-						System.out.println("Àß¸øµÈ ¹øÈ£ ÀÔ·Â");
+						System.out.println("ì˜ëª»ëœ ë²ˆí˜¸ ì…ë ¥");
 					}	
 				}
 //----------------------------------------------------------------------------------------
 					
-				// Ä³¸¯ÅÍ È®ÀÎ
+				// ìºë¦­í„° í™•ì¸
 				else if(user_select == 3) {
 					clearScreen();
-					System.out.println("=====Ä³¸¯ÅÍ È®ÀÎ=====");
+					System.out.println("=====ìºë¦­í„° í™•ì¸=====");
 					
-					//Ä³¸¯ÅÍ°¡ ÀÖ´Ù¸é 
+					//ìºë¦­í„°ê°€ ìˆë‹¤ë©´ 
 					if(con.checkChar(md) == true) {
 						model md2 = con.bringCharInfo(md);
 						String[] charName = md2.getCharName();
 							
 							for(int i = 0; i < charName.length; i++) {
-								System.out.println((i+1) + "¹ø ÀÌ¸§ : " + charName[i]);
+								System.out.println((i+1) + "ë²ˆ ì´ë¦„ : " + charName[i]);
 							}
 					}
 					else {
 						clearScreen();
-						System.out.println("Ä³¸¯ÅÍ°¡ ¾ø½À´Ï´Ù.");
+						System.out.println("ìºë¦­í„°ê°€ ì—†ìŠµë‹ˆë‹¤.");
 					}		
 				}
 //----------------------------------------------------------------------------------------				
-				// Á¾·á
+				// ì¢…ë£Œ
 				else if(user_select == 4) {
 					clearScreen();
-					System.out.println("°ÔÀÓÁ¾·á");
-					game_page = "°ÔÀÓÁ¾·á";
+					System.out.println("ê²Œì„ì¢…ë£Œ");
+					game_page = "ê²Œì„ì¢…ë£Œ";
 				}
 			}
 //----------------------------------------------------------------------------------------
-			//°ÔÀÓÁ¾·á¸é while Å»Ãâ
-			if(game_page.equals("°ÔÀÓÁ¾·á")) {
+			//ê²Œì„ì¢…ë£Œë©´ while íƒˆì¶œ
+			if(game_page.equals("ê²Œì„ì¢…ë£Œ")) {
 				break;
 			}
 		}
@@ -176,7 +176,7 @@ public class View {
 		
 		if(con.checkChar(md) == false) {
 			clearScreen();
-			System.out.println("Ä³¸¯ÅÍ°¡ ¾ø½À´Ï´Ù.");
+			System.out.println("ìºë¦­í„°ê°€ ì—†ìŠµë‹ˆë‹¤.");
 			return;
 		}
 		
@@ -188,17 +188,17 @@ public class View {
 		int actNum = 0;
 		int comNum = 0;
 		
-		System.out.println("=====°ÔÀÓ½ÃÀÛ=====");
+		System.out.println("=====ê²Œì„ì‹œì‘=====");
 		
-		//¶ó¿îµå¼ö ÀÔ·Â
+		//ë¼ìš´ë“œìˆ˜ ì…ë ¥
 		do{
-			System.out.print("¶ó¿îµå ¼ö(ÃÖ´ë 10) : ");
+			System.out.print("ë¼ìš´ë“œ ìˆ˜(ìµœëŒ€ 10) : ");
 			maxRound = sc.nextInt();
 			if(maxRound > 10) {
-				System.out.println("10º¸´Ù ÀÛ°Ô ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+				System.out.println("10ë³´ë‹¤ ì‘ê²Œ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 			}
 			else {
-				//°ÔÀÓ½ÃÀÛÀü ÃÊ±â°ª ¼³Á¤ ¶ó¿îµå¼ö, ÇöÀç¶ó¿îµå, Å¸ÀÚ¹øÈ£, °ø¼ö»óÈ²
+				//ê²Œì„ì‹œì‘ì „ ì´ˆê¸°ê°’ ì„¤ì • ë¼ìš´ë“œìˆ˜, í˜„ì¬ë¼ìš´ë“œ, íƒ€ìë²ˆí˜¸, ê³µìˆ˜ìƒí™©
 				md.setMaxRound(maxRound);
 				md.setNowRound(1);
 				md.setHitterNum(1);
@@ -214,7 +214,7 @@ public class View {
 			System.out.print(charName[i] + "[" + (i+1) + "] ");
 		}
 		
-		System.out.print("ÀÌ¹ø°ÔÀÓ Åõ¼ö¸¦ Á¤ÇØÁÖ¼¼¿ä >>");
+		System.out.print("ì´ë²ˆê²Œì„ íˆ¬ìˆ˜ë¥¼ ì •í•´ì£¼ì„¸ìš” >>");
 		pitcherNum = sc.nextInt();
 		clearScreen();
 		
@@ -226,33 +226,33 @@ public class View {
 				case("OFFEN"):
 					result = "";
 					System.out.println("");
-					System.out.println("============ ÇöÀç ¶ó¿îµå : " + md.getMaxRound() + "-" + md.getNowRound() + " ===========");
-					System.out.println("[°ø°İ]		ÆÀ Æ÷ÀÎÆ® :" + md.getTeamPoint() + " ÄÄÇ»ÅÍ Æ÷ÀÎÆ® : " + md.getEnemyPoint());
+					System.out.println("============ í˜„ì¬ ë¼ìš´ë“œ : " + md.getMaxRound() + "-" + md.getNowRound() + " ===========");
+					System.out.println("[ê³µê²©]		íŒ€ í¬ì¸íŠ¸ :" + md.getTeamPoint() + " ì»´í“¨í„° í¬ì¸íŠ¸ : " + md.getEnemyPoint());
 					System.out.println("STRIKE	: " + md.getStrikeCount() + "\nOUT	: " + md.getOutCount());
-					System.out.print(md.getHitterNum() + " ¹ø Å¸ÀÚ " + charName[md.getHitterNum()-1]);
-					System.out.print(" ¹øÆ®[1] ½ºÀ®[2] °­½ºÀ®[3] >> ");
+					System.out.print(md.getHitterNum() + " ë²ˆ íƒ€ì " + charName[md.getHitterNum()-1]);
+					System.out.print(" ë²ˆíŠ¸[1] ìŠ¤ìœ™[2] ê°•ìŠ¤ìœ™[3] >> ");
 					actNum = sc.nextInt();
 					comNum = rd.nextInt(3)+1;
 					
 					clearScreen();
 					if(comNum == 1) {
-						System.out.println("ÄÄÇ»ÅÍ°¡ º¯È­±¸¸¦ ´øÁ³´Ù");
+						System.out.println("ì»´í“¨í„°ê°€ ë³€í™”êµ¬ë¥¼ ë˜ì¡Œë‹¤");
 					}
 					else if(comNum == 2) {
-						System.out.println("ÄÄÇ»ÅÍ°¡ ½½¶óÀÌ´õ¸¦ ´øÁ³´Ù");
+						System.out.println("ì»´í“¨í„°ê°€ ìŠ¬ë¼ì´ë”ë¥¼ ë˜ì¡Œë‹¤");
 					}
 					else {
-						System.out.println("ÄÄÇ»ÅÍ°¡ Á÷±¸¸¦ ´øÁ³´Ù");
+						System.out.println("ì»´í“¨í„°ê°€ ì§êµ¬ë¥¼ ë˜ì¡Œë‹¤");
 					}
 					
 					if(actNum == 1) {
-						System.out.println(charName[md.getHitterNum()-1] + "ÀÌ(°¡) ¹øÆ®");
+						System.out.println(charName[md.getHitterNum()-1] + "ì´(ê°€) ë²ˆíŠ¸");
 					}
 					else if(actNum == 2) {
-						System.out.println(charName[md.getHitterNum()-1] + "ÀÌ(°¡) ½ºÀ®");
+						System.out.println(charName[md.getHitterNum()-1] + "ì´(ê°€) ìŠ¤ìœ™");
 					}
 					else {
-						System.out.println(charName[md.getHitterNum()-1] + "ÀÌ(°¡) °­½ºÀ®");
+						System.out.println(charName[md.getHitterNum()-1] + "ì´(ê°€) ê°•ìŠ¤ìœ™");
 					}
 					
 					int odState = md.getOdState();
@@ -269,32 +269,32 @@ public class View {
 				case("DEFEN"):
 					result = "";
 					System.out.println("");
-					System.out.println("============ ÇöÀç ¶ó¿îµå : " + md.getMaxRound() + "-" + md.getNowRound() + " ===========");
-					System.out.println("[¼öºñ]		ÆÀ Æ÷ÀÎÆ® :" + md.getTeamPoint() + " ÄÄÇ»ÅÍ Æ÷ÀÎÆ® : " + md.getEnemyPoint());
+					System.out.println("============ í˜„ì¬ ë¼ìš´ë“œ : " + md.getMaxRound() + "-" + md.getNowRound() + " ===========");
+					System.out.println("[ìˆ˜ë¹„]		íŒ€ í¬ì¸íŠ¸ :" + md.getTeamPoint() + " ì»´í“¨í„° í¬ì¸íŠ¸ : " + md.getEnemyPoint());
 					System.out.println("STRIKE	: " + md.getStrikeCount() + "\nOUT	: " + md.getOutCount());
-					System.out.println("ÀÌ¸§ :  " + charName[pitcherNum-1]);
-					System.out.print(" º¯È­±¸[1] ½½¶óÀÌ´õ[2] Á÷±¸[3] >> ");
+					System.out.println("ì´ë¦„ :  " + charName[pitcherNum-1]);
+					System.out.print(" ë³€í™”êµ¬[1] ìŠ¬ë¼ì´ë”[2] ì§êµ¬[3] >> ");
 					actNum = sc.nextInt();
 					
 					clearScreen();
 					if(actNum == 1) {
-						System.out.println(charName[md.getHitterNum()-1] + "ÀÌ(°¡) º¯È­±¸¸¦ ´øÁ³´Ù");
+						System.out.println(charName[md.getHitterNum()-1] + "ì´(ê°€) ë³€í™”êµ¬ë¥¼ ë˜ì¡Œë‹¤");
 					}
 					else if(actNum == 2) {
-						System.out.println(charName[md.getHitterNum()-1] + "ÀÌ(°¡) ½½¶óÀÌ´õ¸¦ ´øÁ³´Ù");
+						System.out.println(charName[md.getHitterNum()-1] + "ì´(ê°€) ìŠ¬ë¼ì´ë”ë¥¼ ë˜ì¡Œë‹¤");
 					}
 					else {
-						System.out.println(charName[md.getHitterNum()-1] + "ÀÌ(°¡) Á÷±¸¸¦ ´øÁ³´Ù");
+						System.out.println(charName[md.getHitterNum()-1] + "ì´(ê°€) ì§êµ¬ë¥¼ ë˜ì¡Œë‹¤");
 					}
 					
 					if(comNum == 1) {
-						System.out.println("ÄÄÇ»ÅÍ°¡ ¹øÆ®");
+						System.out.println("ì»´í“¨í„°ê°€ ë²ˆíŠ¸");
 					}
 					else if(comNum == 2) {
-						System.out.println("ÄÄÇ»ÅÍ°¡ ½ºÀ®");
+						System.out.println("ì»´í“¨í„°ê°€ ìŠ¤ìœ™");
 					}
 					else {
-						System.out.println("ÄÄÇ»ÅÍ°¡ °­½ºÀ®");
+						System.out.println("ì»´í“¨í„°ê°€ ê°•ìŠ¤ìœ™");
 					}
 				
 					if(con.isHitBall(md, actNum, comNum)) {
@@ -307,13 +307,13 @@ public class View {
 				
 				case("STRIKE"):
 					if(md.getOdState() == 0) {
-						System.out.print(charName[md.getHitterNum()-1] + "ÀÌ(°¡) ");
+						System.out.print(charName[md.getHitterNum()-1] + "ì´(ê°€) ");
 					}
 					else {
-						System.out.print("ÄÄÇ»ÅÍ°¡ ");
+						System.out.print("ì»´í“¨í„°ê°€ ");
 					}
 					
-					System.out.println("°øÀ» ¸øÃÆ½À´Ï´Ù.");
+					System.out.println("ê³µì„ ëª»ì³¤ìŠµë‹ˆë‹¤.");
 					System.out.println(" " + (md.getStrikeCount()+1) + " STRIKE!");
 					int strike = md.getStrikeCount();
 					strike++;
@@ -321,11 +321,11 @@ public class View {
 
 					
 					odState = md.getOdState();
-					//°ø°İÁøÇà
+					//ê³µê²©ì§„í–‰
 					if(odState == 0) {
 						gameState = "OFFEN";
 					}
-					//¼öºñÁøÇà
+					//ìˆ˜ë¹„ì§„í–‰
 					else {
 						gameState = "DEFEN";
 					}
@@ -341,11 +341,11 @@ public class View {
 					int outCount = md.getOutCount();
 					
 					
-					//°ø°İ »óÈ²
+					//ê³µê²© ìƒí™©
 					if(md.getOdState() == 0) {
 						result = con.hitBall(md,actNum);
 					}
-					//¼öºñ»óÈ²
+					//ìˆ˜ë¹„ìƒí™©
 					else {
 						comNum = rd.nextInt(3)+1;
 						result = con.hitBall(md,comNum);
@@ -353,7 +353,7 @@ public class View {
 					
 
 					if(odState==0) {
-						System.out.println(charName[md.getHitterNum()-1] + "ÀÌ(°¡) °øÀ» ÃÆ½À´Ï´Ù.");
+						System.out.println(charName[md.getHitterNum()-1] + "ì´(ê°€) ê³µì„ ì³¤ìŠµë‹ˆë‹¤.");
 						System.out.println(result + "!");
 						int hitterNum = md.getHitterNum();
 						hitterNum++;
@@ -363,38 +363,38 @@ public class View {
 						md.setHitterNum(hitterNum);
 						switch(result) { 
 						
-						case "1·çÅ¸": 
+						case "1ë£¨íƒ€": 
 							teamPoint += 1;
 							md.setTeamPoint(teamPoint);
 							md.setStrikeCount(0);
 							break;
 							
-						case "2·çÅ¸": 
+						case "2ë£¨íƒ€": 
 							teamPoint += 3;
 							md.setTeamPoint(teamPoint);
 							md.setStrikeCount(0);
 							break;
 							
-						case "3·çÅ¸": 
+						case "3ë£¨íƒ€": 
 							teamPoint += 5;
 							md.setTeamPoint(teamPoint);
 							md.setStrikeCount(0);
 							break;
 							
-						case "È¨·±": 
+						case "í™ˆëŸ°": 
 							teamPoint += 10;
 							md.setTeamPoint(teamPoint);
 							md.setStrikeCount(0);
 							break;
 							
-						case "ÆÄ¿ï":
+						case "íŒŒìš¸":
 							strikeCount += 1;
 							md.setStrikeCount(strikeCount);
 							hitterNum--;
 							
 							break;
 							
-						case "¾Æ¿ô":
+						case "ì•„ì›ƒ":
 							outCount += 1;
 							md.setOutCount(outCount);
 							md.setStrikeCount(0);
@@ -402,48 +402,48 @@ public class View {
 						}
 					}
 					else {
-						System.out.println("ÄÄÇ»ÅÍ°¡ °øÀ» ÃÆ½À´Ï´Ù.");
+						System.out.println("ì»´í“¨í„°ê°€ ê³µì„ ì³¤ìŠµë‹ˆë‹¤.");
 						System.out.println(result + "!");
 						switch(result) {
 						
-						case "¾Æ¿ô":
+						case "ì•„ì›ƒ":
 							outCount += 1;
 							md.setOutCount(outCount);
 							md.setStrikeCount(0);
 							
 							break;
-						case "1·çÅ¸":
+						case "1ë£¨íƒ€":
 							enemyPoint += 1;
 							md.setEnemyPoint(enemyPoint);
 							md.setStrikeCount(0);
 							break;
-						case "2·çÅ¸":
+						case "2ë£¨íƒ€":
 							enemyPoint += 3;
 							md.setEnemyPoint(enemyPoint);
 							md.setStrikeCount(0);
 							break;
-						case "3·çÅ¸":
+						case "3ë£¨íƒ€":
 							enemyPoint += 5;
 							md.setEnemyPoint(enemyPoint);
 							md.setStrikeCount(0);
 							break;
-						case "È¨·±":
+						case "í™ˆëŸ°":
 							enemyPoint += 10;
 							md.setEnemyPoint(enemyPoint);
 							md.setStrikeCount(0);
 							break;
-						case "ÆÄ¿ï":
+						case "íŒŒìš¸":
 							strikeCount += 1;
 							md.setStrikeCount(strikeCount);
 							break;
 						
 						}
 					}
-					//°ø°İÁøÇà
+					//ê³µê²©ì§„í–‰
 					if(odState == 0) {
 						gameState = "OFFEN";
 					}
-					//¼öºñÁøÇà
+					//ìˆ˜ë¹„ì§„í–‰
 					else {
 						gameState = "DEFEN";
 					}
@@ -469,19 +469,19 @@ public class View {
 				case("CHANGE"):
 					clearScreen();
 					if(md.getMaxRound() != md.getNowRound()) {
-						System.out.println("\n\n°ø¼ö ±³´ë");
+						System.out.println("\n\nê³µìˆ˜ êµëŒ€");
 					}
 					odState = md.getOdState();
 					md.setStrikeCount(0);
 					md.setOutCount(0);
 					
-					//°ø°İ - > ¼öºñ
+					//ê³µê²© - > ìˆ˜ë¹„
 					if(odState == 0) {
 						odState = 1;
 						md.setOdState(odState);
 						gameState = "DEFEN";
 					}
-					//¼öºñ - > °ø°İ
+					//ìˆ˜ë¹„ - > ê³µê²©
 					
 					else {
 						nowRound++;
@@ -493,7 +493,7 @@ public class View {
 					
 			}
 			
-			//¾Æ¿ôÄ«¿îÆ® Áõ°¡
+			//ì•„ì›ƒì¹´ìš´íŠ¸ ì¦ê°€
 			if(md.getStrikeCount() > 2 && result.equals("FOUL") != true ) {
 				System.out.println((md.getOutCount()+1) + " OUT!");
 				int outCount = md.getOutCount();
@@ -508,7 +508,7 @@ public class View {
 				}
 				md.setHitterNum(hitterNum);
 			}
-			//¾Æ¿ô 3È¸ °ø¼ö±³´ë
+			//ì•„ì›ƒ 3íšŒ ê³µìˆ˜êµëŒ€
 			if(md.getOutCount() > 2) {
 				gameState = "CHANGE";
 			}
@@ -516,9 +516,9 @@ public class View {
 			
 			
 			if(md.getNowRound() > md.getMaxRound()) {
-				//System.out.println("ÇöÀç¶ó¿îµå : " + md.getNowRound() + "¸¶Áö¸· ¶ó¿îµå : " + md.getMaxRound());
-				System.out.println("\n\n°ÔÀÓÁ¾·á");
-				System.out.println("ÃÖÁ¾ ½ºÄÚ¾î ÆÀ :" + md.getTeamPoint() + " ÀûÆÀ : " + md.getEnemyPoint());
+				//System.out.println("í˜„ì¬ë¼ìš´ë“œ : " + md.getNowRound() + "ë§ˆì§€ë§‰ ë¼ìš´ë“œ : " + md.getMaxRound());
+				System.out.println("\n\nê²Œì„ì¢…ë£Œ");
+				System.out.println("ìµœì¢… ìŠ¤ì½”ì–´ íŒ€ :" + md.getTeamPoint() + " ì íŒ€ : " + md.getEnemyPoint());
 				break;
 			}
 		}
@@ -534,28 +534,28 @@ public class View {
 		Scanner sc = new Scanner(System.in);
 		Controller con = new Controller();
 		
-		System.out.println("=====Ä³¸¯ÅÍ »ı¼º=====");
+		System.out.println("=====ìºë¦­í„° ìƒì„±=====");
 		
 			String[] character = new String[5];
-			//Ä³¸¯ÅÍ »ı¼º
+			//ìºë¦­í„° ìƒì„±
 			for(int i = 0; i < 5; i++) {
-				System.out.print((i+1) + "¹øÂ° Ä³¸¯ÅÍÀÇ ÀÌ¸§ÀÔ·Â :");
-				System.out.print("ÀÌ¸§ : ");
+				System.out.print((i+1) + "ë²ˆì§¸ ìºë¦­í„°ì˜ ì´ë¦„ì…ë ¥ :");
+				System.out.print("ì´ë¦„ : ");
 				character[i] = sc.next();
 				md.setCharName(character);
 			}
 			
-			//»ı¼ºÇÑ Ä³¸¯ÅÍ ÀÌ¸§ Áßº¹¾øÀ½
+			//ìƒì„±í•œ ìºë¦­í„° ì´ë¦„ ì¤‘ë³µì—†ìŒ
 			if(checkName(character)) {
 				md.setCharName(character);
 				clearScreen();
-				System.out.println("Ä³¸¯ÅÍ »ı¼º ¼º°ø!");
+				System.out.println("ìºë¦­í„° ìƒì„± ì„±ê³µ!");
 				con.makeChar(md);
 			}
-			//»ı¼ºÇÑ Ä³¸¯ÅÍ Áßº¹ ÀÖÀ½
+			//ìƒì„±í•œ ìºë¦­í„° ì¤‘ë³µ ìˆìŒ
 			else {
-				System.out.println("Ä³¸¯ÅÍ »ı¼º½ÇÆĞ");
-				System.out.println("ÀÌ¸§À» Áßº¹ÇÏ¿© ÀÛ¼ºÇß½À´Ï´Ù.");
+				System.out.println("ìºë¦­í„° ìƒì„±ì‹¤íŒ¨");
+				System.out.println("ì´ë¦„ì„ ì¤‘ë³µí•˜ì—¬ ì‘ì„±í–ˆìŠµë‹ˆë‹¤.");
 			}
 	}
 	
@@ -572,8 +572,44 @@ public class View {
 	public static void clearScreen() {
 		  for (int i = 0; i < 80; i++)
 		   System.out.println("");
+		  
+		  draw();
 		}
-	
+		
+	public static void draw(){
+		String art = """
+â €â €â €â €â €â €â €â €â¢ â¡¶â ’â ›â ¶â£¦â¡€â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €
+â €â €â €â €â €â €â €â¢€â¡¿â €â €â €â €â ˆâ¡‡â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €
+â €â €â €â €â €â €â €â£¸â ƒâ €â €â €â €â¢°â¡‡â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €
+â €â €â €â €â €â €â¢€â¡Ÿâ €â €â €â €â¢€â¡¿â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €
+â €â €â €â €â €â €â£¸â â €â €â €â €â£¾â â €â£€â£¤â¡´â –â Šâ ‰â €â €â â  â£€â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €
+â €â €â €â €â €â €â¡â €â €â €â €â£¼â£§â£¶â£¿â£¿â ‹â €â €â €â €â €â €â €â €â ˆâ¢§â¡€â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €
+â €â €â €â €â €â¢¸â â €â €â €â£¼â£¿â£¿â£¿â¡¿â ƒâ €â €â €â €â €â €â €â €â €â €â €â¢³â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €
+â €â €â €â €â €â£¼â €â €â €â¢°â£¿â£¿â£¿â£¿â ƒâ €â €â €â €â €â €â €â €â €â €â €â €â €â¢§â €â €â €â €â €â €â €â €â €â €â£€â£€â£€â €â €â €â €â €â €â €â €
+â €â €â €â €â¢€â¡‡â €â €â¢€â£¿â£¿â£¿â£¿â â €â €â €â €â €â €â €â €â¢€â£€â£ â£¤â£¤â£¶â£¾â£·â£¶â£¶â£¤â£¤â£„â €â €â£°â Šâ €â£ â Ÿâ ’â ¦â£„â¡¤â£„â €â €â €
+â €â €â €â €â£¸â â €â €â£¾â£¿â£¿â£¿â¡Ÿâ €â €â£€â£€â£¤â£´â£¶â£¿â£¿â£¿â£¿â¡¿â¢¿â¡â¡»â£¿â£¿â£¿â£¿â£¿â£¿â£¿â£·â£¾â â €â¡´â¢¿â¢¤â£„â£°â¡Ÿâ¢ â£½â ²â¡„â €
+â €â €â €â €â¡â €â €â¡¼â¢¹â£¿â£¿â£¿â£§â£¶â£¿â£¿â£¿â£¿â£¿â£¿â¡¿â Ÿâ ‹â €â €â €â ˆâ ²â¢¬â »â£¿â£¿â£¿â£¿â£¿â£¿â¡Ÿâ €â¡¼â¢«â£™â£›â£§â¡¼â¢€â¡¿â¢«â£¿â »â¡†
+â €â €â €â¢¸â ƒâ €â£°â ƒâ¢¸â£¿â£¿â Ÿâ ›â »â ¿â ¿â¢¿â ›â ‰â €â €â €â €â €â €â €â €â €â ˆâ â£¹â¡¿â ›â ‰â €â£¸â â¢€â£·â ¼â ›â ¿â£¹â¢â¡¾â£¡â¡Ÿâ£¿â£¿â¢·
+â €â €â €â¡â €â¢ â ‡â €â ˜â£¿â¡¿â €â €â €â €â €â¡Šâ¢§â €â €â €â €â €â €â €â €â €â €â €â €â ˜â£½â¡€â¢€â¡´â ¿â£„â¢¨â¡‡â €â ‘â €â¢¸â¢â£µâ¢¯â¡¾â â¢â 
+â¢€â¡¤â¢¤â¡·â ²â£®â €â €â €â ˆâ£‡â¡€â €â €â €â €â €â¢¸â£„â €â €â €â €â €â €â €â €â €â €â €â €â¢¸â£—â£šâ£›â£·â ˆâ €â¢³â£¤â£¤â£¤â Ÿâ ™â¡µâ ‹â¢€â¡´â ‹â €
+â£¼â –â ¶â¡‡â¢ â ˆâ£‡â €â €â¢€â£¿â¡Ÿâ¡†â €â €â €â €â¢¼â ‡â „â €â €â €â €â €â €â €â €â €â €â €â¢¸â Ÿâ »â£¿â£¥â£¼â¡‚â €â €â €â €â €â¢€â£ â ¶â ‹â €â €â €
+â£¿â ‰â£»â ›â¡·â „â ˜â¢¦â£€â¡¸â£¿â¢ƒâ ƒâ €â €â €â¢€â£ºâ “â €â €â €â €â €â €â €â €â €â €â €â €â¡¾â €â €â €â €â ˆâ ™â ›â ›â ›â ›â ‹â ‰â €â €â €â €â €â €
+â¢™â£â£â¢¸â£ƒâ£ â ¤â£¿â£¶â£¶â¡¿â¢¿â¡€â €â €â €â  â¡®â¡‰â €â €â €â €â €â €â €â €â €â €â¢€â¡¼â â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €
+â¢¿â£„â €â£©â â €â €â €â €â €â €â €â ™â¢¦â¡€â¢ â¡â ’â €â €â €â €â €â €â €â €â €â €â£ â â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €
+â €â ˆâ ‰â â €â €â €â €â €â €â €â €â €â €â ™â ¿â£†â¡€â €â €â €â €â €â €â¢€â£ â ´â šâ â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €
+â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â£¿â£¿â¡¶â ’â ’â ’â¢»â£¿â£§â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €
+â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â£°â£¿â¢¿â ƒâ €â €â €â €â£¿â£§â£†â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €
+â €â €â €â €â €â €â €â €â €â €â €â €â €â €â¢°â â »â ¿â ¼â ‘â¡†â €â €â¡â ¹â£¿â ¿â ‰â£¦â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €
+â €â €â €â €â €â €â €â €â €â €â¢€â¡´â ’â ˆâ ‰â ™â ‚â €â €â ˜â¢§â €â €â¡†â ‚â €â €â ‚â ‰â â â ¢â¢„â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €
+â €â €â¢€â£ â£¤â£¤â£¶â£¶â£¶â£¶â£¾â €â €â €â €â €â£€â£¤â£´â£¶â£¿â£¿â£¿â£¿â£¶â£¤â£„â¡€â €â €â €â €â ˆâ£§â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €â €
+â €â €â €â ‰â ‰â ›â ›â ›â »â ¿â ¿â ·â ¶â ¶â ¾â ¿â ¿â£¿â£¿â£¿â£¿â£¿â£¿â£¿â£¿â£¿â£¿â£¿â£·â£¦â£¤â£¤â ¶â ‹â €â €â €
+				
+				""";
+	for (int i = 0; i < art.length(); i++) {
+		System.out.print(art.charAt(i));
+		//Thread.sleep(1);
+	}
+}
 
 
 }
