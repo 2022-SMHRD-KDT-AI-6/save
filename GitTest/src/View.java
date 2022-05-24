@@ -159,6 +159,7 @@ public class View {
 		
 		int maxRound = 0;
 		int nowRound = 1;
+		int pitcherNum = 0;
 		String gameState = "OFFEN";
 		String[] charName = md.getCharName();
 		int actNum = 0;
@@ -169,7 +170,6 @@ public class View {
 		do{
 			System.out.print("라운드 수(최대 10) : ");
 			maxRound = sc.nextInt();
-			System.out.println("\n\n\n");
 			if(maxRound > 10) {
 				System.out.println("10보다 작게 입력해주세요.");
 			}
@@ -185,6 +185,10 @@ public class View {
 				md.setOutCount(0);
 			}
 		}while(maxRound >= 10);
+		
+		System.out.print("이번게임 투수를 정해주세요 >>");
+		pitcherNum = sc.nextInt();
+		System.out.println("\n\n\n");
 		
 		String result = "";
 		while(true) {
@@ -217,7 +221,7 @@ public class View {
 					System.out.println("============ 현재 라운드 : " + md.getMaxRound() + "-" + md.getNowRound() + " ===========");
 					System.out.println("[수비]		팀 포인트 :" + md.getTeamPoint() + " 적팀 포인트" + md.getEnemyPoint());
 					System.out.println("STRIKE	: " + md.getStrikeCount() + "\nOUT	: " + md.getOutCount());
-					System.out.print(md.getHitterNum() + "번 이름 :  " + charName[md.getHitterNum()-1]);
+					System.out.println("이름 :  " + charName[pitcherNum-1]);
 					System.out.print(" 변화구[1] 슬라이더[2] 직구[3] >> ");
 					actNum = sc.nextInt();
 				
@@ -341,6 +345,12 @@ public class View {
 					}
 					//공격진행
 					if(odState == 0) {
+						int hitterNum = md.getHitterNum();
+						hitterNum++;
+						if(hitterNum > 5) {
+							hitterNum = 1;
+						}
+						md.setHitterNum(hitterNum);
 						gameState = "OFFEN";
 					}
 					//수비진행

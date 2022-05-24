@@ -187,7 +187,7 @@ public class Controller {
 	public String hitBall(model md) {
 		
 		int random = rd.nextInt(100)+1;
-		System.out.println("·£´ý¼ö : " + random); 
+		//System.out.println("·£´ý¼ö : " + random); 
 		
 		if(random <= 20) { 
 			return "ONEBASE";
