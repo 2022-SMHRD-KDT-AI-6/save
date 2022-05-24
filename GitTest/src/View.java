@@ -156,6 +156,7 @@ public class View {
 		Controller con = new Controller();
 		
 		int maxRound = 0;
+		int nowRound = 1;
 		String gameState = "공격";
 		String[] charName = md.getCharName();
 		int actNum = 0;
@@ -199,11 +200,27 @@ public class View {
 					break;
 					
 				case("DEFEN"):
-					
+					System.out.println("=====수비=====");
+					System.out.println("팀 포인트 :" + md.getTeamPoint() + "적팀 포인트" + md.getEnemyPoint());
+					System.out.print(md.getHitterNum() + "번 이름 :  " + charName[md.getHitterNum()-1]);
+					System.out.print("변화구[1] 슬라이더[2] 직구[3] >> ");
+					actNum = sc.nextInt();
+				
+					if(con.isHitBall(md)) {
+						gameState = "HITBALL";
+					}
+					else {
+						gameState = "STRIKE";
+					}
 					break;
 				
 				case("STRIKE"):
+					System.out.println("STRIKE!");
+					int strike = md.getStrikeCount();
+					strike++;
+					md.setStrikeCount(strike);
 					break;
+					
 				case("HITBALL"):
 					System.out.println("공을 쳤습니다.");
 					String result = con.hitBall(md);
@@ -213,13 +230,47 @@ public class View {
 					
 				case("OUT"):
 					System.out.println("아웃");
+					int outCount = md.getOutCount();
+					outCount++;
 					break;
+					
 				case("CHANGE"):
 					System.out.println("공수 교대");
+					int odState = md.getOdState();
+					md.setStrikeCount(0);
+					md.setOutCount(0);
+					
+					//공격 - > 수비
+					if(odState == 0) {
+						odState = 1;
+					}
+					//수비 - > 공격
+					else {
+						nowRound++;
+						md.setNowRound(nowRound);
+						odState = 0;
+					}
+					md.setOdState(odState);
+					
 					break;
-				case("OVER"):
-					System.out.println("게임종료");
-					break;
+			}
+			
+			//아웃카운트 증가
+			if(md.getStrikeCount() > 2) {
+				int outCount = md.getOutCount();
+				md.setStrikeCount(0);
+				outCount++;
+				md.setOutCount(outCount);
+			}
+			//아웃 3회 공수교대
+			if(md.getOutCount() > 2) {
+				gameState = "CHANGE";
+			}
+			
+			if(md.getNowRound() == md.getMaxRound()) {
+				System.out.println("게임종료");
+				System.out.println("최종 스코어 팀 :" + md.getTeamPoint() + "적팀 : " + md.getEnemyPoint());
+				break;
 			}
 		}
 		

@@ -88,7 +88,7 @@ public class Controller {
 				return false;
 			} else {
 
-				sql = "insert into user_info values(?, ? ,0)";
+				sql = "insert into user_info values(?, ?)";
 				psmt = conn.prepareStatement(sql);
 				psmt.setString(1, md.getUser_id());
 				psmt.setString(2, md.getUser_pw());
@@ -194,32 +194,31 @@ public class Controller {
 			case "ONEBASE": 
 				teamPoint += 1;
 				md.setTeamPoint(teamPoint);
-				System.out.println("teamPoint : " + teamPoint); 
 				break;
+				
 			case "DOUBLE": 
 				teamPoint += 3;
 				md.setTeamPoint(teamPoint);
-				System.out.println("teamPoint : " + teamPoint);
 				break;
+				
 			case "TRIPLE": 
 				teamPoint += 5;
 				md.setTeamPoint(teamPoint);
-				System.out.println("teamPoint : " + teamPoint);
 				break;
+				
 			case "HOMERUN": 
 				teamPoint += 10;
 				md.setTeamPoint(teamPoint);
-				System.out.println("teamPoint : " + teamPoint);
 				break;
+				
 			case "FOUL": 
 				strikeCount += 1;
 				md.setStrikeCount(strikeCount);
-				System.out.println("strikeCount : " + strikeCount);
 				break;
+				
 			case "OUT":
 				outCount += 1;
 				md.setOutCount(outCount);
-				System.out.println("outCount : " + outCount);// »Æ¿Œ
 				break;
 			}
 		}else {
