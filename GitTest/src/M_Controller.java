@@ -28,6 +28,7 @@ public class M_Controller {
 				name_arr[num] = rs.getString(2);
 				num++;
 			}
+		
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
