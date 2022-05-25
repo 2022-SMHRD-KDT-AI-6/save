@@ -1,45 +1,31 @@
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
-
-
-
-
-
 public class Controller {
-
 	Random rd = new Random();
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
-
 	int row = 0;
-
 	public void getCon() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			String url = "jdbc:oracle:thin:@project-db-stu.ddns.net:1524:xe";
-
 			String user = "cgi_8_0516_5";
 			String password = "smhrd5";
 			conn = DriverManager.getConnection(url, user, password);
-
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 	}
-
 	public void close() {
-
 		try {
 			if (rs != null) {
 				rs.close();
 			}
-
 			if (psmt != null) {
 				psmt.close();
 			}
@@ -50,7 +36,6 @@ public class Controller {
 			System.out.println("자원반납오류");
 			e.printStackTrace();
 		}
-
 	}
 	
 	//로그인
@@ -68,12 +53,10 @@ public class Controller {
 			} else {
 				result = false;
 			}
-
 		} catch (SQLException e) {
 			System.out.println("DB 오류");
 			e.printStackTrace();
 		} finally {
-
 			close();
 		}
 		return result;
@@ -87,16 +70,13 @@ public class Controller {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, md.getUser_id());
 			rs = psmt.executeQuery();
-
 			if (rs.next()) {
 				return false;
 			} else {
-
 				sql = "insert into user_info values(?, ?)";
 				psmt = conn.prepareStatement(sql);
 				psmt.setString(1, md.getUser_id());
 				psmt.setString(2, md.getUser_pw());
-
 				row = psmt.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -105,7 +85,6 @@ public class Controller {
 		} finally {
 			close();
 		}
-
 		if (row != 0) {
 			return true;
 		} else {
@@ -118,7 +97,7 @@ public class Controller {
 		
 		try {
 			String sql = "delete from char_info where id = ?";
-			psmt = conn.prepareStatement(sql); 
+			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, md.getUser_id());
 			row = psmt.executeUpdate();
 		} catch (SQLException e) {
@@ -142,12 +121,10 @@ public class Controller {
 			} else {
 				result = false;
 			}
-
 		} catch (SQLException e) {
 			System.out.println("DB 오류");
 			e.printStackTrace();
 		} finally {
-
 			close();
 		}
 		return result;
@@ -169,18 +146,16 @@ public class Controller {
 			System.out.println("DB 오류");
 			e.printStackTrace();
 		} finally {
-
 			close();
 		}
-
 	}
 	
-	//볼을 쳤는지 
-	public boolean isHitBall(model md, int actNum, int comNum) { 
+	//볼을 쳤는지
+	public boolean isHitBall(model md, int actNum, int comNum) {
 		
-		int random = rd.nextInt(100)+1; 
+		int random = rd.nextInt(100)+1;
 		int percent = 40;
-		//System.out.println("랜덤수 : " + random); 
+		//System.out.println("랜덤수 : " + random);
 		// 공격 번트[1] 스윙[2] 강스윙[3]
 		// 수비 변화구[1] 슬라이더[2] 직구[3]
 		//유저의 공격
@@ -231,27 +206,27 @@ public class Controller {
 			}
 		}
 		
-		if(random <= percent) { 
+		if(random <= percent) {
 			return true;
 		}
 		return false;
 		
 	}
 	
-	//쳤을때 결과 
+	//쳤을때 결과
 	public String hitBall(model md, int actNum) {
 		
 		int random = rd.nextInt(100)+1;
-		//System.out.println("랜덤수 : " + random); 
+		//System.out.println("랜덤수 : " + random);
 		//번트 1루타 40% 2루타 0%  3루타 0%  아웃 30% 파울 10% 홈런 0%
 		//스윙 1루타 25% 2루타 25% 3루타 20% 아웃 10% 파울 10% 홈런 10%
 		//강스윙 1루타 25% 2루타 15% 3루타 10%  아웃 20% 파울 10% 홈런 20%
 		
 		if(actNum == 1)
 		{
-			if(random <= 40) { 
+			if(random <= 40) {
 				return "1루타";
-			}else if(random <= 80) { 
+			}else if(random <= 80) {
 				return "아웃";
 			}
 			else{
@@ -259,32 +234,32 @@ public class Controller {
 			}
 		}
 		else if(actNum == 2){
-			if(random <= 25) { 
+			if(random <= 25) {
 				return "1루타";
 			}else if(random <= 50) {
 				return "2루타";
-			}else if(random <= 70) { 
+			}else if(random <= 70) {
 				return "3루타";
-			}else if(random <= 80) { 
+			}else if(random <= 80) {
 				return "아웃";
 			}else if(random <= 90) {
 				return "파울";
-			}else { 
+			}else {
 				return "홈런";
 			}
 		}
 		else{
-			if(random <= 25) { 
+			if(random <= 25) {
 				return "1루타";
 			}else if(random <= 40) {
 				return "2루타";
-			}else if(random <= 50) { 
+			}else if(random <= 50) {
 				return "3루타";
-			}else if(random <= 70) { 
+			}else if(random <= 70) {
 				return "아웃";
 			}else if(random <= 80) {
 				return "파울";
-			}else { 
+			}else {
 				return "홈런";
 			}
 		}
@@ -300,28 +275,28 @@ public class Controller {
 		int outCount = md.getOutCount();
 		
 		if(odState==0) {
-			switch(gameState) { 
-			case "ONEBASE": 
+			switch(gameState) {
+			case "ONEBASE":
 				teamPoint += 1;
 				md.setTeamPoint(teamPoint);
 				break;
 				
-			case "DOUBLE": 
+			case "DOUBLE":
 				teamPoint += 3;
 				md.setTeamPoint(teamPoint);
 				break;
 				
-			case "TRIPLE": 
+			case "TRIPLE":
 				teamPoint += 5;
 				md.setTeamPoint(teamPoint);
 				break;
 				
-			case "HOMERUN": 
+			case "HOMERUN":
 				teamPoint += 10;
 				md.setTeamPoint(teamPoint);
 				break;
 				
-			case "FOUL": 
+			case "FOUL":
 				strikeCount += 1;
 				md.setStrikeCount(strikeCount);
 				break;
@@ -397,6 +372,4 @@ public class Controller {
 		 md.setCharName(name_arr);
 		 return md;
 	}
-
 }//Controller end
-
