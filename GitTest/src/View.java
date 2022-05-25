@@ -388,8 +388,10 @@ public class View {
 							break;
 							
 						case "파울":
-							strikeCount += 1;
-							md.setStrikeCount(strikeCount);
+							if(strikeCount < 2) {
+								strikeCount += 1;
+								md.setStrikeCount(strikeCount);
+							}
 							hitterNum--;
 							
 							break;
@@ -433,8 +435,10 @@ public class View {
 							md.setStrikeCount(0);
 							break;
 						case "파울":
-							strikeCount += 1;
-							md.setStrikeCount(strikeCount);
+							if(strikeCount < 2) {
+								strikeCount += 1;
+								md.setStrikeCount(strikeCount);
+							}
 							break;
 						
 						}
@@ -494,7 +498,7 @@ public class View {
 			}
 			
 			//아웃카운트 증가
-			if(md.getStrikeCount() > 2 && result.equals("FOUL") != true ) {
+			if(md.getStrikeCount() > 2) {
 				System.out.println((md.getOutCount()+1) + " OUT!");
 				int outCount = md.getOutCount();
 				md.setStrikeCount(0);

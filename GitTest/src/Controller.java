@@ -63,7 +63,11 @@ public class Controller {
 			psmt.setString(1, md.getUser_id());
 			psmt.setString(2, md.getUser_pw());
 			rs = psmt.executeQuery();
-			result = rs.next();
+			if (rs.next()) {
+				result = true;
+			} else {
+				result = false;
+			}
 
 		} catch (SQLException e) {
 			System.out.println("DB ¿À·ù");
