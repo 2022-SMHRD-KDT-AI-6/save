@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import javazoom.jl.player.MP3Player;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -19,13 +18,15 @@ public class View {
 		MP3Player mp3 = new MP3Player();
 		model md = new model();
 		
-		String path = "C:\\Users\\smhrd\\Desktop\\BaseballGame\\BaseballMusic.mp3";
+		String path = "C:\\Users\\smhrd\\Desktop\\BaseballGame\\sound\\";
+		String main_music = "BaseballMusic.mp3";
+		
 		
 		String game_page = "가입로그인";
 		int user_select = -1;
 		String id = "";
 		String pw = "";
-		music_play(mp3, path);
+		music_play(mp3, path + main_music);
 		clearScreen2();
 		
 		while(true) {
@@ -181,6 +182,19 @@ public class View {
 		Controller con = new Controller();
 		Scanner sc = new Scanner(System.in);
 		Random rd = new Random();
+		MP3Player mp3 = new MP3Player();
+		
+		String path = "C:\\Users\\smhrd\\Desktop\\BaseballGame\\sound\\";
+		String foulOut = "foulOut.mp3";
+		String safety = "safety.mp3";
+		String miss = "miss.mp3";
+		String homerun = "homerun.mp3";
+		String homerunClap = "homerunclap.mp3";
+		String safetyClap = "safetyclap.mp3";
+		String outSound = "out.mp3";
+		String strikeSound = "strike.mp3";
+		String strikeOut = "strikeOut.mp3";
+		String whistle = "whistle.mp3";
 		
 		if(con.checkChar(md) == false) {
 			clearScreen();
@@ -269,6 +283,8 @@ public class View {
 						gameState = "HITBALL";
 					}
 					else {
+						music_play(mp3, path + miss);
+						mp3.play(path + strikeSound);
 						gameState = "STRIKE";
 					}
 					
@@ -309,6 +325,8 @@ public class View {
 						gameState = "HITBALL";
 					}
 					else {
+						music_play(mp3, path + miss);
+						mp3.play(path + strikeSound);
 						gameState = "STRIKE";
 					}
 					break;
@@ -355,7 +373,6 @@ public class View {
 					}
 					//수비상황
 					else {
-						comNum = rd.nextInt(3)+1;
 						result = con.hitBall(md,comNum);
 					}
 					
@@ -372,30 +389,39 @@ public class View {
 						switch(result) { 
 						
 						case "1루타": 
+							music_play(mp3, path + safety);
+							mp3.play(path + safetyClap);
 							teamPoint += 1;
 							md.setTeamPoint(teamPoint);
 							md.setStrikeCount(0);
 							break;
 							
 						case "2루타": 
+							music_play(mp3, path + safety);
+							mp3.play(path + safetyClap);
 							teamPoint += 3;
 							md.setTeamPoint(teamPoint);
 							md.setStrikeCount(0);
 							break;
 							
 						case "3루타": 
+							music_play(mp3, path + safety);
+							mp3.play(path + safetyClap);
 							teamPoint += 5;
 							md.setTeamPoint(teamPoint);
 							md.setStrikeCount(0);
 							break;
 							
 						case "홈런": 
+							music_play(mp3, path + homerun);
+							mp3.play(path + homerunClap);
 							teamPoint += 10;
 							md.setTeamPoint(teamPoint);
 							md.setStrikeCount(0);
 							break;
 							
 						case "파울":
+							music_play(mp3, path + foulOut);
 							if(strikeCount < 2) {
 								strikeCount += 1;
 								md.setStrikeCount(strikeCount);
@@ -405,6 +431,8 @@ public class View {
 							break;
 							
 						case "아웃":
+							music_play(mp3, path + foulOut);
+							mp3.play(path + outSound);
 							outCount += 1;
 							md.setOutCount(outCount);
 							md.setStrikeCount(0);
@@ -417,32 +445,43 @@ public class View {
 						switch(result) {
 						
 						case "아웃":
+							music_play(mp3, path + foulOut);
+							mp3.play(path + outSound);
 							outCount += 1;
 							md.setOutCount(outCount);
 							md.setStrikeCount(0);
 							
 							break;
 						case "1루타":
+							music_play(mp3, path + safety);
+							mp3.play(path + safetyClap);
 							enemyPoint += 1;
 							md.setEnemyPoint(enemyPoint);
 							md.setStrikeCount(0);
 							break;
 						case "2루타":
+							music_play(mp3, path + safety);
+							mp3.play(path + safetyClap);
 							enemyPoint += 3;
 							md.setEnemyPoint(enemyPoint);
 							md.setStrikeCount(0);
 							break;
 						case "3루타":
+							music_play(mp3, path + safety);
+							mp3.play(path + safetyClap);
 							enemyPoint += 5;
 							md.setEnemyPoint(enemyPoint);
 							md.setStrikeCount(0);
 							break;
 						case "홈런":
+							music_play(mp3, path + homerun);
+							mp3.play(path + homerunClap);
 							enemyPoint += 10;
 							md.setEnemyPoint(enemyPoint);
 							md.setStrikeCount(0);
 							break;
 						case "파울":
+							music_play(mp3, path + foulOut);
 							if(strikeCount < 2) {
 								strikeCount += 1;
 								md.setStrikeCount(strikeCount);
@@ -463,6 +502,7 @@ public class View {
 					break;
 					
 				case("OUT"):
+					mp3.play(path + outSound);
 					System.out.println((md.getOutCount()+1) + " OUT!");
 					outCount = md.getOutCount();
 					outCount++;
@@ -480,15 +520,14 @@ public class View {
 					
 				case("CHANGE"):
 					clearScreen();
-					if(md.getMaxRound() != md.getNowRound()) {
-						System.out.println("\n\n공수 교대");
-					}
 					odState = md.getOdState();
 					md.setStrikeCount(0);
 					md.setOutCount(0);
 					
 					//공격 - > 수비
 					if(odState == 0) {
+						music_play(mp3, path + whistle);
+						System.out.println("공수 교대");
 						odState = 1;
 						md.setOdState(odState);
 						gameState = "DEFEN";
@@ -496,6 +535,8 @@ public class View {
 					//수비 - > 공격
 					
 					else {
+						music_play(mp3, path + whistle);
+						System.out.println("공수 교대");
 						nowRound++;
 						md.setNowRound(nowRound);
 						odState = 0;
@@ -505,8 +546,9 @@ public class View {
 					
 			}
 			
-			//아웃카운트 증가
+			//아웃카운트 증가 
 			if(md.getStrikeCount() > 2) {
+				music_play(mp3, path + strikeOut);
 				System.out.println((md.getOutCount()+1) + " OUT!");
 				int outCount = md.getOutCount();
 				md.setStrikeCount(0);
@@ -541,7 +583,7 @@ public class View {
 
 		
 
-	public static void viewMakeChar(model md) {
+public static void viewMakeChar(model md) {
 		
 		Scanner sc = new Scanner(System.in);
 		Controller con = new Controller();
